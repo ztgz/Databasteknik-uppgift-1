@@ -57,6 +57,8 @@ namespace Uppgift1
         public static bool AddAdressToAdressregister(DataAccess dataAccess, string postalCode, string adress,
             string city, int Id)
         {
+            CreateAdressInDatabase(dataAccess, postalCode, adress, city);
+
             SqlParameter[] parameters =
             {
                 new SqlParameter("@FK_Id", Id),

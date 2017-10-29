@@ -223,15 +223,6 @@ namespace Uppgift1.UI
 
         private void AddAdressToPerson(DataAccess dataAccess, string postalCode, string adress, string city, int Id)
         {
-            //bool adressExists = SQLCommands.DoesAdressExsist(dataAccess, postalCode, adress);
-
-            //if (!adressExists)
-            //{
-            //    SQLCommands.CreateAdressInDatabase(dataAccess, postalCode, adress, city);
-            //}
-
-            SQLCommands.CreateAdressInDatabase(dataAccess, postalCode, adress, city);
-
             SQLCommands.AddAdressToAdressregister(dataAccess, postalCode, adress, city, Id);
         }
     }
