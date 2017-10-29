@@ -66,6 +66,22 @@ namespace Uppgift1.UI
                 {
                     InfoLabel.Text += "\nInget telefonnummer har lagts till i kontakten.";
                 }
+
+
+                /*Nollställ alla fält*/
+                JobbKontaktCheckBox.Checked = false;
+                ÖvrigKontaktCheckBox.Checked = false;
+                PersonligKontaktCheckBox.Checked = false;
+
+                PostnummerTextbox.Text = "";
+                GatuadressTextbox.Text = "";
+                PostortTextbox.Text = "";
+
+                NamnTextbox.Text = "";
+                EpostTextbox.Text = "";
+
+                TelefonTextbox.Text = "";
+
             }
             else
             {
