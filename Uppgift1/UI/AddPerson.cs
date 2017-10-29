@@ -42,7 +42,7 @@ namespace Uppgift1.UI
                 // If Postnumber and gatuaddres exsists, add address
                 if (!string.IsNullOrEmpty(PostnummerTextbox.Text) && !string.IsNullOrEmpty(GatuadressTextbox.Text))
                 {
-                    CreateJobbKontakt(dataAccess, Id);
+
                 }
             }
         }
@@ -132,6 +132,5 @@ namespace Uppgift1.UI
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
-
     }
 }
