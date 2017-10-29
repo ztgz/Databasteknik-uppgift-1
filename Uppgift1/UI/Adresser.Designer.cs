@@ -37,6 +37,7 @@
             this.PostortTextBox = new System.Windows.Forms.TextBox();
             this.AddAdressBTN = new System.Windows.Forms.Button();
             this.InfoLabel = new System.Windows.Forms.Label();
+            this.DeleteAdressBTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.addresserDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,11 +103,11 @@
             // 
             // AddAdressBTN
             // 
-            this.AddAdressBTN.Location = new System.Drawing.Point(259, 11);
+            this.AddAdressBTN.Location = new System.Drawing.Point(245, 9);
             this.AddAdressBTN.Name = "AddAdressBTN";
             this.AddAdressBTN.Size = new System.Drawing.Size(151, 91);
             this.AddAdressBTN.TabIndex = 7;
-            this.AddAdressBTN.Text = "Lägg till Adress";
+            this.AddAdressBTN.Text = "Lägg till adress";
             this.AddAdressBTN.UseVisualStyleBackColor = true;
             this.AddAdressBTN.Click += new System.EventHandler(this.AddAdressBTN_Click);
             // 
@@ -118,11 +119,22 @@
             this.InfoLabel.Size = new System.Drawing.Size(0, 17);
             this.InfoLabel.TabIndex = 8;
             // 
+            // DeleteAdressBTN
+            // 
+            this.DeleteAdressBTN.Location = new System.Drawing.Point(954, 243);
+            this.DeleteAdressBTN.Name = "DeleteAdressBTN";
+            this.DeleteAdressBTN.Size = new System.Drawing.Size(140, 51);
+            this.DeleteAdressBTN.TabIndex = 9;
+            this.DeleteAdressBTN.Text = "Ta bort adress";
+            this.DeleteAdressBTN.UseVisualStyleBackColor = true;
+            this.DeleteAdressBTN.Click += new System.EventHandler(this.DeleteAdressBTN_Click);
+            // 
             // Adresser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1127, 618);
+            this.Controls.Add(this.DeleteAdressBTN);
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.AddAdressBTN);
             this.Controls.Add(this.PostortTextBox);
@@ -151,5 +163,6 @@
         private System.Windows.Forms.TextBox PostortTextBox;
         private System.Windows.Forms.Button AddAdressBTN;
         private System.Windows.Forms.Label InfoLabel;
+        private System.Windows.Forms.Button DeleteAdressBTN;
     }
 }

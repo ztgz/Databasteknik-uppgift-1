@@ -73,5 +73,18 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
 
+        public static bool DeleteAdress(DataAccess dataAccess, string postalCode, string adress)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Postnummer", postalCode),
+                new SqlParameter("@Gatuadress", adress),
+            };
+
+            var command = "DELETE FROM Adress where Postnummer = @Postnummer " +
+                           "AND Gatuadress = @Gatuadress;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
     }
 }

@@ -58,5 +58,21 @@ namespace Uppgift1.UI
                 InfoLabel.Text = "Adress kan inte skapas föräns alla fält är ifyllda.";
             }
         }
+
+        private void DeleteAdressBTN_Click(object sender, EventArgs e)
+        {
+            DataAccess dataAccess = new DataAccess();
+
+            for (int i = 0; i < addresserDataGridView.RowCount; i++)
+            {
+                if (addresserDataGridView.Rows[i].Selected)
+                {
+                    SQLCommands.DeleteAdress(dataAccess, addresserDataGridView[0,i].Value.ToString(),
+                        addresserDataGridView[1,i].Value.ToString() );
+                }
+            }
+
+            LoadAdresses();
+        }
     }
 }
