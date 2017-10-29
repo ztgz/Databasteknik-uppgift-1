@@ -223,53 +223,14 @@ namespace Uppgift1.UI
 
         private void AddAdressToPerson(DataAccess dataAccess, string postalCode, string adress, string city, int Id)
         {
-            /*Check if adress exists*/
-            bool adressExists = false;
+            bool adressExists = SQLCommands.DoesAdressExsist(dataAccess, postalCode, adress);
 
-            DataSet dataSet = new DataSet();
-
-            var commandText = "Select Postnummer, Gatuadress, Postort FROM Adress";
-
-            dataSet = dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-
-            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-            {
-                if ((string)dataSet.Tables[0].Rows[i][0] == postalCode && 
-                    (string)dataSet.Tables[0].Rows[i][1] == adress)
-                {
-                    adressExists = true;
-                    break;
-                }
-            }
-
-            SqlParameter[] parameters;
-            /* If adress does not exsist, add adress*/
             if (!adressExists)
             {
-                parameters = new SqlParameter[]
-                {
-                    new SqlParameter("@Postnummer", postalCode),
-                    new SqlParameter("@Gatuadress", adress),
-                    new SqlParameter("@Postort", city), 
-                };
-
-                commandText = "INSERT INTO Adress(Postnummer, Gatuadress, Postort) " + "values(@Postnummer, @Gatuadress, @Postort);";
-
-                dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+                SQLCommands.CreateAdressInDatabase(dataAccess, postalCode, adress, city);
             }
-
-            /* Add to adressregister */
-            parameters = new SqlParameter[]
-            {
-                new SqlParameter("@FK_Id", Id),
-                new SqlParameter("@FK_Postnummer", postalCode),
-                new SqlParameter("@FK_Gatuadress", adress), 
-            };
-
-            commandText = "INSERT INTO Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " + "values(@FK_Id, @FK_Postnummer, @FK_Gatuadress);";
-
-            dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-
+            
+            SQLCommands.AddAdressToAdressregister(dataAccess, postalCode, adress, city, Id);
         }
     }
 }

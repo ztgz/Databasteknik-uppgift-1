@@ -98,5 +98,11 @@ namespace Uppgift1
             AddPerson addPersonWindow = new AddPerson();
             addPersonWindow.Show();
         }
+
+        private void AdressWindowBTN_Click(object sender, EventArgs e)
+        {
+            Adresser adressWindow = new Adresser();
+            adressWindow.Show();
+        }
     }
 }

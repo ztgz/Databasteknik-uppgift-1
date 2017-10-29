@@ -205,7 +205,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 758);
+            this.ClientSize = new System.Drawing.Size(497, 630);
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.TypAvKontaktLabel);
             this.Controls.Add(this.PersonligKontaktCheckBox);
