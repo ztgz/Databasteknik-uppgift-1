@@ -16,7 +16,7 @@ namespace Uppgift1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AdressBok());
+            Application.Run(new AdressBook());
         }
     }
 }

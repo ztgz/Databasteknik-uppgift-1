@@ -26,10 +26,11 @@ namespace Uppgift1.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=Uppgift1;User ID=Uppgift1;Password=123")]
-        public string Uppgif1Connection {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source = localhost; Initial Catalog = Uppgift1; Integrated Security = True; " +
+            "User ID = Uppgift1; Password = 123")]
+        public string ConnectionUppgift1 {
             get {
-                return ((string)(this["Uppgif1Connection"]));
+                return ((string)(this["ConnectionUppgift1"]));
             }
         }
     }
