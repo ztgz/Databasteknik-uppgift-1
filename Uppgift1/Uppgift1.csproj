@@ -62,6 +62,12 @@
   <ItemGroup>
     <Compile Include="DAL\DataAccess.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="UI\AddPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddPerson.Designer.cs">
+      <DependentUpon>AddPerson.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AdressBook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\AddPerson.resx">
+      <DependentUpon>AddPerson.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AdressBook.resx">
       <DependentUpon>AdressBook.cs</DependentUpon>
     </EmbeddedResource>

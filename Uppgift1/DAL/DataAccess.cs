@@ -49,5 +49,29 @@ namespace Uppgift1.DAL
 
             return dataSet;
         }
+
+        public bool ExecuteNonQuery(string commandText, CommandType commandType, SqlParameter[] parameters)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = commandText;
+            command.CommandType = commandType;
+            command.Parameters.AddRange(parameters);
+
+            int updatedLines;
+
+            try
+            {
+                connection.Open();
+
+                updatedLines = command.ExecuteNonQuery();
+            }
+            finally
+            {
+                command.Dispose();
+                connection.Close();
+            }
+
+            return updatedLines > 0;
+        }
     }
 }

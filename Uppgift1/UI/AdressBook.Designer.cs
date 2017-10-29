@@ -37,6 +37,7 @@
             this.JobbRadioBTN = new System.Windows.Forms.RadioButton();
             this.AllaRadioBtn = new System.Windows.Forms.RadioButton();
             this.UppdateraTabelBTN = new System.Windows.Forms.Button();
+            this.AddPersonBTN = new System.Windows.Forms.Button();
             this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PersonsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
@@ -134,6 +135,16 @@
             this.UppdateraTabelBTN.UseVisualStyleBackColor = true;
             this.UppdateraTabelBTN.Click += new System.EventHandler(this.UppdateraTabelBTN_Click);
             // 
+            // AddPersonBTN
+            // 
+            this.AddPersonBTN.Location = new System.Drawing.Point(840, 343);
+            this.AddPersonBTN.Name = "AddPersonBTN";
+            this.AddPersonBTN.Size = new System.Drawing.Size(135, 45);
+            this.AddPersonBTN.TabIndex = 4;
+            this.AddPersonBTN.Text = "Skapa Kontakt";
+            this.AddPersonBTN.UseVisualStyleBackColor = true;
+            this.AddPersonBTN.Click += new System.EventHandler(this.AddPersonBTN_Click);
+            // 
             // personBindingSource
             // 
             this.personBindingSource.DataSource = typeof(Uppgift1.Models.Person);
@@ -143,6 +154,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1333, 747);
+            this.Controls.Add(this.AddPersonBTN);
             this.Controls.Add(this.UppdateraTabelBTN);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.DataLabel);
@@ -169,6 +181,7 @@
         private System.Windows.Forms.RadioButton ÖvrigRadioBTN;
         private System.Windows.Forms.RadioButton PersonligRadioBTN;
         private System.Windows.Forms.Button UppdateraTabelBTN;
+        private System.Windows.Forms.Button AddPersonBTN;
     }
 }
 

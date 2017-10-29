@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Uppgift1.DAL;
 using Uppgift1.Models;
+using Uppgift1.UI;
 
 namespace Uppgift1
 {
@@ -104,5 +105,10 @@ namespace Uppgift1
             LoadAddressBook();
         }
 
+        private void AddPersonBTN_Click(object sender, EventArgs e)
+        {
+            AddPerson addPersonWindow = new AddPerson();
+            addPersonWindow.Show();
+        }
     }
 }
