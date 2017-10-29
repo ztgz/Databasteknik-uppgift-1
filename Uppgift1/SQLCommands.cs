@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,6 @@ namespace Uppgift1
 
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
-
 
         public static bool DoesAdressExsist(DataAccess dataAccess, string postalCode, string adress)
         {
@@ -39,6 +39,9 @@ namespace Uppgift1
 
         public static bool CreateAdressInDatabase(DataAccess dataAccess, string postalCode, string adress, string city)
         {
+            if (DoesAdressExsist(dataAccess, postalCode, adress))
+                return false;
+
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Postnummer", postalCode),
