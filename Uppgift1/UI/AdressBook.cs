@@ -37,8 +37,10 @@ namespace Uppgift1
 
             if (AllaRadioBtn.Checked)
             {
-                commandText = "SELECT Id, Namn, Epost, Postnummer, Gatuadress, Postort " +
-                                  "FROM Person LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
+                commandText = "SELECT p.Id, p.Namn, p.Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
+                                  "FROM Person p LEFT JOIN Telefonlista ON p.Id = Telefonlista.FK_Id " +
+                                  "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
+                                  "LEFT JOIN Adressregister ON p.Id = Adressregister.FK_Id " +
                                   "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
                                   "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
 
@@ -46,18 +48,22 @@ namespace Uppgift1
             }
             else if (JobbRadioBTN.Checked)
             {
-                commandText = "SELECT Person.Id, Namn, Epost,  Postnummer, Gatuadress, Postort " +
-                                  "From JobbKontakt LEFT JOIN Person ON JobbKontakt.FK_Id = Person.Id " +
-                                  "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
-                                  "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
-                                  "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
+                commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
+                              "From JobbKontakt LEFT JOIN Person ON JobbKontakt.FK_Id = Person.Id " +
+                              "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
+                              "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
+                              "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
+                              "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
+                              "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
 
                 DataLabel.Text = "Jobb Kontakter";
             }
             else if (PersonligRadioBTN.Checked)
             {
-                commandText = "SELECT Person.Id, Namn, Epost,  Postnummer, Gatuadress, Postort " +
+                commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
                               "From [PersonligKontakt] LEFT JOIN Person ON [PersonligKontakt].FK_Id = Person.Id " +
+                              "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
+                              "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
                               "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
                               "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
                               "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
@@ -66,8 +72,10 @@ namespace Uppgift1
             }
             else if (ÖvrigRadioBTN.Checked)
             {
-                commandText = "SELECT Person.Id, Namn, Epost,  Postnummer, Gatuadress, Postort " +
+                commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
                               "From [ÖvrigKontakt] LEFT JOIN Person ON [ÖvrigKontakt].FK_Id = Person.Id " +
+                              "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
+                              "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
                               "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
                               "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
                               "Adressregister.FK_Gatuadress = Adress.Gatuadress;";

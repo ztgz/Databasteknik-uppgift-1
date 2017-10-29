@@ -132,5 +132,6 @@ namespace Uppgift1.UI
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
+        
     }
 }
