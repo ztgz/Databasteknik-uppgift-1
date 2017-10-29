@@ -45,8 +45,7 @@
             this.JobbKontaktCheckBox = new System.Windows.Forms.CheckBox();
             this.PersonligKontaktCheckBox = new System.Windows.Forms.CheckBox();
             this.TypAvKontaktLabel = new System.Windows.Forms.Label();
-            this.TempGridView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.TempGridView)).BeginInit();
+            this.InfoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // NamnLabel
@@ -194,21 +193,20 @@
             this.TypAvKontaktLabel.TabIndex = 16;
             this.TypAvKontaktLabel.Text = "Kontakt typ";
             // 
-            // TempGridView
+            // InfoLabel
             // 
-            this.TempGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TempGridView.Location = new System.Drawing.Point(25, 479);
-            this.TempGridView.Name = "TempGridView";
-            this.TempGridView.RowTemplate.Height = 24;
-            this.TempGridView.Size = new System.Drawing.Size(411, 167);
-            this.TempGridView.TabIndex = 17;
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.Location = new System.Drawing.Point(22, 443);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(0, 17);
+            this.InfoLabel.TabIndex = 17;
             // 
             // AddPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(497, 758);
-            this.Controls.Add(this.TempGridView);
+            this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.TypAvKontaktLabel);
             this.Controls.Add(this.PersonligKontaktCheckBox);
             this.Controls.Add(this.JobbKontaktCheckBox);
@@ -228,7 +226,6 @@
             this.Controls.Add(this.NamnLabel);
             this.Name = "AddPerson";
             this.Text = "AddPerson";
-            ((System.ComponentModel.ISupportInitialize)(this.TempGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,6 +250,6 @@
         private System.Windows.Forms.CheckBox JobbKontaktCheckBox;
         private System.Windows.Forms.CheckBox PersonligKontaktCheckBox;
         private System.Windows.Forms.Label TypAvKontaktLabel;
-        private System.Windows.Forms.DataGridView TempGridView;
+        private System.Windows.Forms.Label InfoLabel;
     }
 }
