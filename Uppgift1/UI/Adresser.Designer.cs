@@ -36,6 +36,7 @@
             this.GatuadressTextBox = new System.Windows.Forms.TextBox();
             this.PostortTextBox = new System.Windows.Forms.TextBox();
             this.AddAdressBTN = new System.Windows.Forms.Button();
+            this.InfoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addresserDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,11 +110,20 @@
             this.AddAdressBTN.UseVisualStyleBackColor = true;
             this.AddAdressBTN.Click += new System.EventHandler(this.AddAdressBTN_Click);
             // 
+            // InfoLabel
+            // 
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.Location = new System.Drawing.Point(13, 119);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(0, 17);
+            this.InfoLabel.TabIndex = 8;
+            // 
             // Adresser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1127, 618);
+            this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.AddAdressBTN);
             this.Controls.Add(this.PostortTextBox);
             this.Controls.Add(this.GatuadressTextBox);
@@ -140,5 +150,6 @@
         private System.Windows.Forms.TextBox GatuadressTextBox;
         private System.Windows.Forms.TextBox PostortTextBox;
         private System.Windows.Forms.Button AddAdressBTN;
+        private System.Windows.Forms.Label InfoLabel;
     }
 }

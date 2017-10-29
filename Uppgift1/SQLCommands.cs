@@ -16,7 +16,8 @@ namespace Uppgift1
         public static DataSet LoadAdresses()
         {
             var dataAccess = new DataAccess();
-            var commandText = "Select Postnummer, Gatuadress, Postort FROM Adress;";
+            var commandText = "Select Postnummer, Gatuadress, Postort FROM Adress " +
+                              "ORDER BY Postnummer;";
 
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }

@@ -67,7 +67,6 @@ namespace Uppgift1.UI
                     InfoLabel.Text += "\nInget telefonnummer har lagts till i kontakten.";
                 }
 
-
                 /*Nollställ alla fält*/
                 JobbKontaktCheckBox.Checked = false;
                 ÖvrigKontaktCheckBox.Checked = false;

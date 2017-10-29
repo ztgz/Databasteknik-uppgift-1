@@ -35,8 +35,27 @@ namespace Uppgift1.UI
             {
                 DataAccess dataAccess = new DataAccess();
 
-                SQLCommands.CreateAdressInDatabase(dataAccess, PostNummerTextBox.Text, GatuadressTextBox.Text,
-                    PostortTextBox.Text);
+                if (SQLCommands.CreateAdressInDatabase(dataAccess, PostNummerTextBox.Text, 
+                    GatuadressTextBox.Text, PostortTextBox.Text))
+                {
+                    InfoLabel.Text = "Adress kunde skapas.";
+
+                    GatuadressTextBox.Text = "";
+                    PostNummerTextBox.Text = "";
+                    PostortTextBox.Text = "";
+
+                    LoadAdresses();
+                }
+                else
+                {
+                    InfoLabel.Text = "Adress kunde inte skapas." + 
+                        "\nVänligen se efter om postnummer och adress redan finns i databasen.";
+                }
+            }
+
+            else
+            {
+                InfoLabel.Text = "Adress kan inte skapas föräns alla fält är ifyllda.";
             }
         }
     }
