@@ -26,7 +26,36 @@ namespace Uppgift1.UI
             if (!String.IsNullOrEmpty(NamnTextbox.Text))
             {
                 CreatePerson(dataAccess);
+
+                /* Get the id of the last added person */
+                int Id = GetIdOfLastPersonInList(dataAccess);
+
+                if (JobbKontaktCheckBox.Checked)
+                    CreateJobbKontakt(dataAccess, Id);
+
+                if (PersonligKontaktCheckBox.Checked)
+                    CreatePersonligKontakt(dataAccess, Id);
+
+                if (ÖvrigKontaktCheckBox.Checked)
+                    CreateÖvrigKontakt(dataAccess, Id);
+
+                // If Postnumber and gatuaddres exsists, add address
+                if (!string.IsNullOrEmpty(PostnummerTextbox.Text) && !string.IsNullOrEmpty(GatuadressTextbox.Text))
+                {
+                    CreateJobbKontakt(dataAccess, Id);
+                }
             }
+        }
+
+        private int GetIdOfLastPersonInList(DataAccess dataAccess)
+        {
+            DataSet dataSet = new DataSet();
+
+            var commandText = "Select TOP 1 Id, Namn, Telefon, Epost FROM Person " +
+                              "ORDER BY Id DESC;";
+            dataSet = dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+
+            return int.Parse(dataSet.Tables[0].Rows[0][0].ToString());
         }
 
         private bool CreatePerson(DataAccess dataAccess)
@@ -38,8 +67,8 @@ namespace Uppgift1.UI
 
             List<SqlParameter> parameters = new List<SqlParameter>();
 
-            string insertCommand = "Insert Into Person(Namn";
-            string valueCommand = "values(@Namn";
+            string insertCommand = "INSERT INTO Person(Namn";
+            string valueCommand = "VALUES(@Namn";
 
             parameters.Add(new SqlParameter("@Namn", Namn));
 
@@ -60,19 +89,49 @@ namespace Uppgift1.UI
             insertCommand += ") ";
             valueCommand += ");";
 
-            //SqlParameter[] parameters =
-            //{
-            //    new SqlParameter("@Namn", Namn),
-            //    new SqlParameter("@Telefon", Telefon),
-            //    new SqlParameter("@Epost", Epost),
-            //};
-
-            //var command = "Insert Into Person(Namn, Telefon, Epost) " +
-            //              "values(@Namn, @Telefon, @Epost);";
-
             var command = insertCommand + valueCommand;
 
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters.ToArray());
         }
+
+        private bool CreateJobbKontakt(DataAccess dataAccess, int Id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", Id), 
+            };
+
+            var commandText = "INSERT INTO JobbKontakt(FK_Id) " +
+                              "VALUES(@FK_Id);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        private bool CreatePersonligKontakt(DataAccess dataAccess, int Id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", Id),
+            };
+
+            var commandText = "INSERT INTO PersonligKontakt(FK_Id) " +
+                              "VALUES(@FK_Id);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        private bool CreateÖvrigKontakt(DataAccess dataAccess, int Id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", Id),
+            };
+
+            var commandText = "INSERT INTO ÖvrigKontakt(FK_Id) " +
+                              "VALUES(@FK_Id);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
     }
 }
