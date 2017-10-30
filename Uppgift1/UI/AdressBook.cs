@@ -116,5 +116,20 @@ namespace Uppgift1
             AddPhonenumber phoneWindow = new AddPhonenumber();
             phoneWindow.Show();
         }
+
+        private void removeContactBTN_Click(object sender, EventArgs e)
+        {
+            DataAccess dataAccess = new DataAccess();
+
+            for (int i = 0; i < PersonsDataGridView.RowCount; i++)
+            {
+                if (PersonsDataGridView.Rows[i].Selected)
+                {
+                    SQLCommands.DeletePerson(dataAccess, int.Parse(PersonsDataGridView[0, i].Value.ToString()));
+                }
+            }
+
+            LoadAddressBook();
+        }
     }
 }

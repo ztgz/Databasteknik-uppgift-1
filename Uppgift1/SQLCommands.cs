@@ -107,6 +107,21 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
+        public static bool DeletePerson(DataAccess dataAccess, int id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Id", id),
+            };
+
+            var command = "DELETE From ÖvrigKontakt WHERE FK_Id = @Id;";
+            command += "DELETE From JobbKontakt WHERE FK_Id = @Id;";
+            command += "DELETE From PersonligKontakt WHERE FK_Id = @Id;";
+            command += "DELETE FROM Person where Id = @Id;";
+
+           return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
 
         public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
         {

@@ -42,6 +42,7 @@
             this.SearchBTN = new System.Windows.Forms.Button();
             this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TelefonBTN = new System.Windows.Forms.Button();
+            this.removeContactBTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PersonsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personBindingSource)).BeginInit();
@@ -182,11 +183,22 @@
             this.TelefonBTN.UseVisualStyleBackColor = true;
             this.TelefonBTN.Click += new System.EventHandler(this.TelefonBTN_Click);
             // 
+            // removeContactBTN
+            // 
+            this.removeContactBTN.Location = new System.Drawing.Point(654, 342);
+            this.removeContactBTN.Name = "removeContactBTN";
+            this.removeContactBTN.Size = new System.Drawing.Size(154, 46);
+            this.removeContactBTN.TabIndex = 8;
+            this.removeContactBTN.Text = "Ta bort kontakt";
+            this.removeContactBTN.UseVisualStyleBackColor = true;
+            this.removeContactBTN.Click += new System.EventHandler(this.removeContactBTN_Click);
+            // 
             // AdressBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1333, 747);
+            this.Controls.Add(this.removeContactBTN);
             this.Controls.Add(this.TelefonBTN);
             this.Controls.Add(this.SearchBTN);
             this.Controls.Add(this.AdressWindowBTN);
@@ -221,6 +233,7 @@
         private System.Windows.Forms.Button AdressWindowBTN;
         private System.Windows.Forms.Button SearchBTN;
         private System.Windows.Forms.Button TelefonBTN;
+        private System.Windows.Forms.Button removeContactBTN;
     }
 }
 
