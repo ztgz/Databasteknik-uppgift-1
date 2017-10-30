@@ -90,6 +90,12 @@
     <Compile Include="UI\Adresser.Designer.cs">
       <DependentUpon>Adresser.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MoreInfoWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MoreInfoWindow.Designer.cs">
+      <DependentUpon>MoreInfoWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Search.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Adresser.resx">
       <DependentUpon>Adresser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MoreInfoWindow.resx">
+      <DependentUpon>MoreInfoWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Search.resx">
       <DependentUpon>Search.cs</DependentUpon>

@@ -33,7 +33,7 @@ namespace Uppgift1
         {
             var dataAccess = new DataAccess();
             var commandText = "Select Id, Namn, Epost FROM Person;";
-            
+
 
             if (AllaRadioBtn.Checked)
             {
@@ -126,6 +126,40 @@ namespace Uppgift1
                 if (PersonsDataGridView.Rows[i].Selected)
                 {
                     SQLCommands.DeletePerson(dataAccess, int.Parse(PersonsDataGridView[0, i].Value.ToString()));
+                }
+            }
+
+            LoadAddressBook();
+        }
+
+        private void PersonsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (PersonsDataGridView.Columns[e.ColumnIndex].HeaderText != "Id")
+            {
+                DataAccess dataAccess = new DataAccess();
+                int id = (int)PersonsDataGridView[0, e.RowIndex].Value;
+                string value = PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
+
+                switch (PersonsDataGridView.Columns[e.ColumnIndex].HeaderText)
+                {
+                    case "Namn":
+                        SQLCommands.UpdateNamn(dataAccess, id, value);
+                        break;
+                    case "Epost":
+                        SQLCommands.UpdateEpost(dataAccess, id, value);
+                        break;
+                    case "Nummer":
+                        SQLCommands.UpdatePhonenumber(dataAccess, id, value);
+                        break;
+                    case "Postnummer":
+
+                        break;
+                    case "Gatuadress":
+
+                        break;
+                    case "Postort":
+
+                        break;
                 }
             }
 

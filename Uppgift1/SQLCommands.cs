@@ -198,5 +198,100 @@ namespace Uppgift1
 
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
+
+        public static DataSet LoadPersons(int Id, string postalCode, string street)
+        {
+            var dataAccess = new DataAccess();
+            var commandText =
+                "SELECT p.Id, p.Namn, p.Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort FROM Person p " +
+                "LEFT JOIN Telefonlista ON p.Id = Telefonlista.FK_Id " +
+                "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
+                "LEFT JOIN Adressregister ON p.Id = Adressregister.FK_Id " +
+                "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
+                "Adressregister.FK_Gatuadress = Adress.Gatuadress ";
+
+            if (Id > 0)
+            {
+                commandText += "where p.ID = " + Id;
+                if (postalCode.Length > 0)
+                {
+                    commandText += " and Adress.Postnummer = '" + postalCode + "'";
+                    commandText += " and Adress.Gatuadress = '" + street + "'";
+                }
+            }
+            else
+            {
+                if (postalCode.Length > 0)
+                {
+                    commandText += " where Adress.Postnummer = '" + postalCode + "'";
+                    commandText += " and Adress.Gatuadress = '" + street + "'";
+                }
+            }
+
+            commandText += ";";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+
+        public static bool UpdateEpost(DataAccess dataAccess, int id, string Epost)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Id", id), 
+                new SqlParameter("@Epost", Epost),
+            };
+
+            string commandText = "UPDATE Person Set Epost = @Epost where Id = @id";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool UpdateNamn(DataAccess dataAccess, int id, string name)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Id", id),
+                new SqlParameter("@Namn", name),
+            };
+
+            string commandText = "UPDATE Person Set Namn = @Namn where Id = @id";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string number)
+        {
+            //Try to create phonnumber in database
+            CreatePhoneNumberInDatabase(dataAccess, number);
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", number),
+                new SqlParameter("@Id", id), 
+            };
+
+            string commandText = "";
+            if (DoesPersonHavePhone(dataAccess, id))
+            {
+                commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
+            }
+            else
+            {
+                
+            }
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id)
+        {
+            var commandText = "Select count(FK_ID) from Telefonlista " +
+                              "where FK_Id = " + id + ";";
+
+            return (int) dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
+        }
+
+
+
     }
 }

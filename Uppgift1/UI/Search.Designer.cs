@@ -33,10 +33,10 @@
             this.NamnTextBox = new System.Windows.Forms.TextBox();
             this.PostortTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.allaKontakterBTN = new System.Windows.Forms.RadioButton();
-            this.JobKontakterBTN = new System.Windows.Forms.RadioButton();
-            this.PersonligaKontakterBTN = new System.Windows.Forms.RadioButton();
             this.ÖvrigaKontakterBTN = new System.Windows.Forms.RadioButton();
+            this.PersonligaKontakterBTN = new System.Windows.Forms.RadioButton();
+            this.JobKontakterBTN = new System.Windows.Forms.RadioButton();
+            this.allaKontakterBTN = new System.Windows.Forms.RadioButton();
             this.searchBTN = new System.Windows.Forms.Button();
             this.searchResultDataGridView = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
@@ -86,27 +86,16 @@
             this.panel1.Size = new System.Drawing.Size(200, 116);
             this.panel1.TabIndex = 4;
             // 
-            // allaKontakterBTN
+            // ÖvrigaKontakterBTN
             // 
-            this.allaKontakterBTN.AutoSize = true;
-            this.allaKontakterBTN.Location = new System.Drawing.Point(4, 4);
-            this.allaKontakterBTN.Name = "allaKontakterBTN";
-            this.allaKontakterBTN.Size = new System.Drawing.Size(115, 21);
-            this.allaKontakterBTN.TabIndex = 0;
-            this.allaKontakterBTN.TabStop = true;
-            this.allaKontakterBTN.Text = "Alla kontakter";
-            this.allaKontakterBTN.UseVisualStyleBackColor = true;
-            // 
-            // JobKontakterBTN
-            // 
-            this.JobKontakterBTN.AutoSize = true;
-            this.JobKontakterBTN.Location = new System.Drawing.Point(4, 32);
-            this.JobKontakterBTN.Name = "JobKontakterBTN";
-            this.JobKontakterBTN.Size = new System.Drawing.Size(123, 21);
-            this.JobKontakterBTN.TabIndex = 1;
-            this.JobKontakterBTN.TabStop = true;
-            this.JobKontakterBTN.Text = "Jobb kontakter";
-            this.JobKontakterBTN.UseVisualStyleBackColor = true;
+            this.ÖvrigaKontakterBTN.AutoSize = true;
+            this.ÖvrigaKontakterBTN.Location = new System.Drawing.Point(4, 88);
+            this.ÖvrigaKontakterBTN.Name = "ÖvrigaKontakterBTN";
+            this.ÖvrigaKontakterBTN.Size = new System.Drawing.Size(134, 21);
+            this.ÖvrigaKontakterBTN.TabIndex = 3;
+            this.ÖvrigaKontakterBTN.TabStop = true;
+            this.ÖvrigaKontakterBTN.Text = "Övriga kontakter";
+            this.ÖvrigaKontakterBTN.UseVisualStyleBackColor = true;
             // 
             // PersonligaKontakterBTN
             // 
@@ -119,16 +108,27 @@
             this.PersonligaKontakterBTN.Text = "Personliga kontakter";
             this.PersonligaKontakterBTN.UseVisualStyleBackColor = true;
             // 
-            // ÖvrigaKontakterBTN
+            // JobKontakterBTN
             // 
-            this.ÖvrigaKontakterBTN.AutoSize = true;
-            this.ÖvrigaKontakterBTN.Location = new System.Drawing.Point(4, 88);
-            this.ÖvrigaKontakterBTN.Name = "ÖvrigaKontakterBTN";
-            this.ÖvrigaKontakterBTN.Size = new System.Drawing.Size(134, 21);
-            this.ÖvrigaKontakterBTN.TabIndex = 3;
-            this.ÖvrigaKontakterBTN.TabStop = true;
-            this.ÖvrigaKontakterBTN.Text = "Övriga kontakter";
-            this.ÖvrigaKontakterBTN.UseVisualStyleBackColor = true;
+            this.JobKontakterBTN.AutoSize = true;
+            this.JobKontakterBTN.Location = new System.Drawing.Point(4, 32);
+            this.JobKontakterBTN.Name = "JobKontakterBTN";
+            this.JobKontakterBTN.Size = new System.Drawing.Size(123, 21);
+            this.JobKontakterBTN.TabIndex = 1;
+            this.JobKontakterBTN.TabStop = true;
+            this.JobKontakterBTN.Text = "Jobb kontakter";
+            this.JobKontakterBTN.UseVisualStyleBackColor = true;
+            // 
+            // allaKontakterBTN
+            // 
+            this.allaKontakterBTN.AutoSize = true;
+            this.allaKontakterBTN.Location = new System.Drawing.Point(4, 4);
+            this.allaKontakterBTN.Name = "allaKontakterBTN";
+            this.allaKontakterBTN.Size = new System.Drawing.Size(115, 21);
+            this.allaKontakterBTN.TabIndex = 0;
+            this.allaKontakterBTN.TabStop = true;
+            this.allaKontakterBTN.Text = "Alla kontakter";
+            this.allaKontakterBTN.UseVisualStyleBackColor = true;
             // 
             // searchBTN
             // 
@@ -151,6 +151,7 @@
             this.searchResultDataGridView.RowTemplate.Height = 24;
             this.searchResultDataGridView.Size = new System.Drawing.Size(909, 262);
             this.searchResultDataGridView.TabIndex = 6;
+            this.searchResultDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchResultDataGridView_CellDoubleClick);
             // 
             // Search
             // 

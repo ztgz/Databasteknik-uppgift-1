@@ -55,10 +55,10 @@
             this.PersonsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PersonsDataGridView.Location = new System.Drawing.Point(105, 395);
             this.PersonsDataGridView.Name = "PersonsDataGridView";
-            this.PersonsDataGridView.ReadOnly = true;
             this.PersonsDataGridView.RowTemplate.Height = 24;
             this.PersonsDataGridView.Size = new System.Drawing.Size(1140, 298);
             this.PersonsDataGridView.TabIndex = 0;
+            this.PersonsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonsDataGridView_CellEndEdit);
             // 
             // DataLabel
             // 
@@ -175,9 +175,9 @@
             // 
             // TelefonBTN
             // 
-            this.TelefonBTN.Location = new System.Drawing.Point(278, 29);
+            this.TelefonBTN.Location = new System.Drawing.Point(105, 177);
             this.TelefonBTN.Name = "TelefonBTN";
-            this.TelefonBTN.Size = new System.Drawing.Size(106, 50);
+            this.TelefonBTN.Size = new System.Drawing.Size(114, 56);
             this.TelefonBTN.TabIndex = 7;
             this.TelefonBTN.Text = "Telefon";
             this.TelefonBTN.UseVisualStyleBackColor = true;
