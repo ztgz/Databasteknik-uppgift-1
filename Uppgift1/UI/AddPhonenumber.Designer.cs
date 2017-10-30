@@ -31,6 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.TelefonnummerTextBox = new System.Windows.Forms.TextBox();
             this.telefonnummerDataGridView = new System.Windows.Forms.DataGridView();
+            this.AddPhonenumberBTN = new System.Windows.Forms.Button();
+            this.InfoLabel = new System.Windows.Forms.Label();
+            this.DeleteRowBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.telefonnummerDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,11 +62,42 @@
             this.telefonnummerDataGridView.Size = new System.Drawing.Size(665, 232);
             this.telefonnummerDataGridView.TabIndex = 2;
             // 
+            // AddPhonenumberBTN
+            // 
+            this.AddPhonenumberBTN.Location = new System.Drawing.Point(15, 45);
+            this.AddPhonenumberBTN.Name = "AddPhonenumberBTN";
+            this.AddPhonenumberBTN.Size = new System.Drawing.Size(194, 44);
+            this.AddPhonenumberBTN.TabIndex = 3;
+            this.AddPhonenumberBTN.Text = "Lägg till nummer";
+            this.AddPhonenumberBTN.UseVisualStyleBackColor = true;
+            this.AddPhonenumberBTN.Click += new System.EventHandler(this.AddPhonenumberBTN_Click);
+            // 
+            // InfoLabel
+            // 
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.Location = new System.Drawing.Point(12, 106);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(0, 17);
+            this.InfoLabel.TabIndex = 4;
+            // 
+            // DeleteRowBtn
+            // 
+            this.DeleteRowBtn.Location = new System.Drawing.Point(551, -1);
+            this.DeleteRowBtn.Name = "DeleteRowBtn";
+            this.DeleteRowBtn.Size = new System.Drawing.Size(137, 51);
+            this.DeleteRowBtn.TabIndex = 5;
+            this.DeleteRowBtn.Text = "Ta bort rad";
+            this.DeleteRowBtn.UseVisualStyleBackColor = true;
+            this.DeleteRowBtn.Click += new System.EventHandler(this.DeleteRowBtn_Click);
+            // 
             // AddPhonenumber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(689, 370);
+            this.Controls.Add(this.DeleteRowBtn);
+            this.Controls.Add(this.InfoLabel);
+            this.Controls.Add(this.AddPhonenumberBTN);
             this.Controls.Add(this.telefonnummerDataGridView);
             this.Controls.Add(this.TelefonnummerTextBox);
             this.Controls.Add(this.label1);
@@ -80,5 +114,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TelefonnummerTextBox;
         private System.Windows.Forms.DataGridView telefonnummerDataGridView;
+        private System.Windows.Forms.Button AddPhonenumberBTN;
+        private System.Windows.Forms.Label InfoLabel;
+        private System.Windows.Forms.Button DeleteRowBtn;
     }
 }

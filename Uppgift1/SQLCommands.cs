@@ -94,5 +94,48 @@ namespace Uppgift1
 
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
+
+        public static bool DeletePhonenumber(DataAccess dataAccess, string phonenumber)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phonenumber),
+            };
+
+            var command = "DELETE FROM Telefonnummer where Nummer = @Nummer;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
+
+        public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
+        {
+            DataSet dataSet = LoadPhonenumbers();
+
+            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+            {
+                if ((string)dataSet.Tables[0].Rows[i][0] == phoneNumber)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CreatePhoneNumberInDatabase(DataAccess dataAccess, string phoneNumber)
+        {
+            if (DoesPhoneNumberExsist(dataAccess, phoneNumber))
+                return false;
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phoneNumber),
+            };
+
+            string commandText = "INSERT INTO Telefonnummer(Nummer) " + "values(@Nummer);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
     }
 }
