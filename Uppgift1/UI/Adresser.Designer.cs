@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.addresserDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,20 +39,31 @@
             this.AddAdressBTN = new System.Windows.Forms.Button();
             this.InfoLabel = new System.Windows.Forms.Label();
             this.DeleteAdressBTN = new System.Windows.Forms.Button();
+            this.postnummerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gatuadressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.postortDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.adressBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.addresserDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adressBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // addresserDataGridView
             // 
             this.addresserDataGridView.AllowUserToAddRows = false;
             this.addresserDataGridView.AllowUserToDeleteRows = false;
+            this.addresserDataGridView.AutoGenerateColumns = false;
             this.addresserDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.addresserDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.postnummerDataGridViewTextBoxColumn,
+            this.gatuadressDataGridViewTextBoxColumn,
+            this.postortDataGridViewTextBoxColumn});
+            this.addresserDataGridView.DataSource = this.adressBindingSource1;
             this.addresserDataGridView.Location = new System.Drawing.Point(13, 300);
             this.addresserDataGridView.Name = "addresserDataGridView";
-            this.addresserDataGridView.ReadOnly = true;
             this.addresserDataGridView.RowTemplate.Height = 24;
-            this.addresserDataGridView.Size = new System.Drawing.Size(1081, 282);
+            this.addresserDataGridView.Size = new System.Drawing.Size(856, 282);
             this.addresserDataGridView.TabIndex = 0;
+            this.addresserDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.addresserDataGridView_CellEndEdit);
             // 
             // label1
             // 
@@ -121,7 +133,7 @@
             // 
             // DeleteAdressBTN
             // 
-            this.DeleteAdressBTN.Location = new System.Drawing.Point(954, 243);
+            this.DeleteAdressBTN.Location = new System.Drawing.Point(729, 243);
             this.DeleteAdressBTN.Name = "DeleteAdressBTN";
             this.DeleteAdressBTN.Size = new System.Drawing.Size(140, 51);
             this.DeleteAdressBTN.TabIndex = 9;
@@ -129,11 +141,33 @@
             this.DeleteAdressBTN.UseVisualStyleBackColor = true;
             this.DeleteAdressBTN.Click += new System.EventHandler(this.DeleteAdressBTN_Click);
             // 
+            // postnummerDataGridViewTextBoxColumn
+            // 
+            this.postnummerDataGridViewTextBoxColumn.DataPropertyName = "Postnummer";
+            this.postnummerDataGridViewTextBoxColumn.HeaderText = "Postnummer";
+            this.postnummerDataGridViewTextBoxColumn.Name = "postnummerDataGridViewTextBoxColumn";
+            // 
+            // gatuadressDataGridViewTextBoxColumn
+            // 
+            this.gatuadressDataGridViewTextBoxColumn.DataPropertyName = "Gatuadress";
+            this.gatuadressDataGridViewTextBoxColumn.HeaderText = "Gatuadress";
+            this.gatuadressDataGridViewTextBoxColumn.Name = "gatuadressDataGridViewTextBoxColumn";
+            // 
+            // postortDataGridViewTextBoxColumn
+            // 
+            this.postortDataGridViewTextBoxColumn.DataPropertyName = "Postort";
+            this.postortDataGridViewTextBoxColumn.HeaderText = "Postort";
+            this.postortDataGridViewTextBoxColumn.Name = "postortDataGridViewTextBoxColumn";
+            // 
+            // adressBindingSource1
+            // 
+            this.adressBindingSource1.DataSource = typeof(Uppgift1.Models.Adress);
+            // 
             // Adresser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1127, 618);
+            this.ClientSize = new System.Drawing.Size(896, 618);
             this.Controls.Add(this.DeleteAdressBTN);
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.AddAdressBTN);
@@ -147,6 +181,7 @@
             this.Name = "Adresser";
             this.Text = "Adresser";
             ((System.ComponentModel.ISupportInitialize)(this.addresserDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adressBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,5 +199,9 @@
         private System.Windows.Forms.Button AddAdressBTN;
         private System.Windows.Forms.Label InfoLabel;
         private System.Windows.Forms.Button DeleteAdressBTN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn postnummerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gatuadressDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn postortDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource adressBindingSource1;
     }
 }

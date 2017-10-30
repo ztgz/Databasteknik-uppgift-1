@@ -38,8 +38,8 @@
             this.AllaRadioBtn = new System.Windows.Forms.RadioButton();
             this.UppdateraTabelBTN = new System.Windows.Forms.Button();
             this.AddPersonBTN = new System.Windows.Forms.Button();
-            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.AdressWindowBTN = new System.Windows.Forms.Button();
+            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PersonsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personBindingSource)).BeginInit();
@@ -146,10 +146,6 @@
             this.AddPersonBTN.UseVisualStyleBackColor = true;
             this.AddPersonBTN.Click += new System.EventHandler(this.AddPersonBTN_Click);
             // 
-            // personBindingSource
-            // 
-            this.personBindingSource.DataSource = typeof(Uppgift1.Models.Person);
-            // 
             // AdressWindowBTN
             // 
             this.AdressWindowBTN.Location = new System.Drawing.Point(105, 29);
@@ -159,6 +155,10 @@
             this.AdressWindowBTN.Text = "Adresser";
             this.AdressWindowBTN.UseVisualStyleBackColor = true;
             this.AdressWindowBTN.Click += new System.EventHandler(this.AdressWindowBTN_Click);
+            // 
+            // personBindingSource
+            // 
+            this.personBindingSource.DataSource = typeof(Uppgift1.Models.Person);
             // 
             // AdressBook
             // 

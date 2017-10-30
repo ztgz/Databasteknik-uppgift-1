@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\DataAccess.cs" />
+    <Compile Include="Models\Adress.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="SQLCommands.cs" />
     <Compile Include="UI\AddPerson.cs">
@@ -102,6 +103,7 @@
     <EmbeddedResource Include="UI\Adresser.resx">
       <DependentUpon>Adresser.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Uppgift1.Models.Adress.datasource" />
     <None Include="Properties\DataSources\Uppgift1.Models.Person.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
