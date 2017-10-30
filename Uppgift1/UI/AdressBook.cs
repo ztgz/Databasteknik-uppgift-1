@@ -110,5 +110,11 @@ namespace Uppgift1
             Search searchWindow = new Search();
             searchWindow.Show();
         }
+
+        private void TelefonBTN_Click(object sender, EventArgs e)
+        {
+            AddPhonenumber phoneWindow = new AddPhonenumber();
+            phoneWindow.Show();
+        }
     }
 }

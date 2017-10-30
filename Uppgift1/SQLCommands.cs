@@ -22,6 +22,14 @@ namespace Uppgift1
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
 
+        public static DataSet LoadPhonenumbers()
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "Select Nummer FROM Telefonnummer;";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+
         public static bool DoesAdressExsist(DataAccess dataAccess, string postalCode, string adress)
         {
             DataSet dataSet = LoadAdresses();

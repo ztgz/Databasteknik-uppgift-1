@@ -156,7 +156,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 551);
+            this.ClientSize = new System.Drawing.Size(977, 539);
             this.Controls.Add(this.searchResultDataGridView);
             this.Controls.Add(this.searchBTN);
             this.Controls.Add(this.panel1);

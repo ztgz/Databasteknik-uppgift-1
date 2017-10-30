@@ -70,6 +70,12 @@
     <Compile Include="UI\AddPerson.Designer.cs">
       <DependentUpon>AddPerson.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AddPhonenumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddPhonenumber.Designer.cs">
+      <DependentUpon>AddPhonenumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AdressBook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </Compile>
     <EmbeddedResource Include="UI\AddPerson.resx">
       <DependentUpon>AddPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AddPhonenumber.resx">
+      <DependentUpon>AddPhonenumber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AdressBook.resx">
       <DependentUpon>AdressBook.cs</DependentUpon>
