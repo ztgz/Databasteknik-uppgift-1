@@ -104,5 +104,11 @@ namespace Uppgift1
             Adresser adressWindow = new Adresser();
             adressWindow.Show();
         }
+
+        private void SearchBTN_Click(object sender, EventArgs e)
+        {
+            Search searchWindow = new Search();
+            searchWindow.Show();
+        }
     }
 }

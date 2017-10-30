@@ -40,6 +40,7 @@
             this.AddPersonBTN = new System.Windows.Forms.Button();
             this.AdressWindowBTN = new System.Windows.Forms.Button();
             this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.SearchBTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PersonsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personBindingSource)).BeginInit();
@@ -160,11 +161,22 @@
             // 
             this.personBindingSource.DataSource = typeof(Uppgift1.Models.Person);
             // 
+            // SearchBTN
+            // 
+            this.SearchBTN.Location = new System.Drawing.Point(105, 99);
+            this.SearchBTN.Name = "SearchBTN";
+            this.SearchBTN.Size = new System.Drawing.Size(114, 57);
+            this.SearchBTN.TabIndex = 6;
+            this.SearchBTN.Text = "Sök";
+            this.SearchBTN.UseVisualStyleBackColor = true;
+            this.SearchBTN.Click += new System.EventHandler(this.SearchBTN_Click);
+            // 
             // AdressBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1333, 747);
+            this.Controls.Add(this.SearchBTN);
             this.Controls.Add(this.AdressWindowBTN);
             this.Controls.Add(this.AddPersonBTN);
             this.Controls.Add(this.UppdateraTabelBTN);
@@ -195,6 +207,7 @@
         private System.Windows.Forms.Button UppdateraTabelBTN;
         private System.Windows.Forms.Button AddPersonBTN;
         private System.Windows.Forms.Button AdressWindowBTN;
+        private System.Windows.Forms.Button SearchBTN;
     }
 }
 
