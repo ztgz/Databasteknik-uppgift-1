@@ -121,8 +121,7 @@ namespace Uppgift1
 
            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
-
-
+        
         public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
         {
             DataSet dataSet = LoadPhonenumbers();
@@ -152,5 +151,21 @@ namespace Uppgift1
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
+
+        public static DataSet LoadPersons(string searchWord, bool jobbKontakt, bool personligKontakt, bool övrigKontakt)
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "Select p.Id, p.Namn, p.Epost FROM Person p";
+            if (jobbKontakt)
+                commandText += " RIGHT JOIN JobbKontakt on p.Id = JobbKontakt.FK_Id";
+            if (personligKontakt)
+                commandText += " RIGHT JOIN PersonligKontakt on p.Id = PersonligKontakt.FK_Id";
+            if (övrigKontakt)
+                commandText += " RIGHT JOIN ÖvrigKontakt on p.Id = ÖvrigKontakt.FK_Id";
+            commandText += " where p.Namn like('%" + searchWord + "%');";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+        
     }
 }

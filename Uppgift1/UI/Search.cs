@@ -15,10 +15,23 @@ namespace Uppgift1.UI
         public Search()
         {
             InitializeComponent();
+            allaKontakterBTN.Checked = true;
         }
-
+        
         private void searchBTN_Click(object sender, EventArgs e)
         {
+            searchResultDataGridView.DataSource = null;
+
+            /*Sök 1: Bara namn
+             * 2: Bara adress
+             * 3: Namn och address */
+            if (string.IsNullOrEmpty(PostortTextBox.Text) &&
+                !string.IsNullOrEmpty(NamnTextBox.Text))
+            {
+                searchResultDataGridView.DataSource = SQLCommands.LoadPersons(NamnTextBox.Text,
+                    JobKontakterBTN.Checked, PersonligaKontakterBTN.Checked,
+                    ÖvrigaKontakterBTN.Checked).Tables[0];
+            }
 
         }
     }
