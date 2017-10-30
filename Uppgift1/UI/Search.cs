@@ -32,6 +32,18 @@ namespace Uppgift1.UI
                     JobKontakterBTN.Checked, PersonligaKontakterBTN.Checked,
                     ÖvrigaKontakterBTN.Checked).Tables[0];
             }
+            else if (!string.IsNullOrEmpty(PostortTextBox.Text) &&
+                     string.IsNullOrEmpty(NamnTextBox.Text))
+            {
+                searchResultDataGridView.DataSource = SQLCommands.LoadAdress(PostortTextBox.Text).Tables[0];
+            }
+            else if (!string.IsNullOrEmpty(PostortTextBox.Text) &&
+                     !string.IsNullOrEmpty(NamnTextBox.Text))
+            {
+                searchResultDataGridView.DataSource = SQLCommands.LoadPersonsWithAdress(NamnTextBox.Text,
+                    PostortTextBox.Text, JobKontakterBTN.Checked, PersonligaKontakterBTN.Checked,
+                    ÖvrigaKontakterBTN.Checked).Tables[0];
+            }
 
         }
     }
