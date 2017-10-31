@@ -99,31 +99,12 @@ namespace Uppgift1.UI
 
         private void CreatePerson(DataAccess dataAccess)
         {
-            /* Add persons */
-            string Namn = NamnTextbox.Text;
-            //string Telefon = TelefonTextbox.Text;
-            string Epost = EpostTextbox.Text;
+            ///* Add persons */
+            string namn = NamnTextbox.Text;
+            ////string Telefon = TelefonTextbox.Text;
+            string epost = EpostTextbox.Text;
 
-            List<SqlParameter> parameters = new List<SqlParameter>();
-
-            string insertCommand = "INSERT INTO Person(Namn";
-            string valueCommand = "VALUES(@Namn";
-
-            parameters.Add(new SqlParameter("@Namn", Namn));
-
-            if (!string.IsNullOrEmpty(Epost))
-            {
-                insertCommand += ", Epost";
-                valueCommand += ", @Epost";
-                parameters.Add(new SqlParameter("@Epost", Epost));
-            }
-            
-            insertCommand += ") ";
-            valueCommand += ");";
-
-            var command = insertCommand + valueCommand;
-
-            dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters.ToArray());
+            SQLCommands.CreatePerson(dataAccess, namn, epost);
         }
 
         private void AddPhoneNumberToPerson(DataAccess dataAccess, string phoneNumber, int Id)

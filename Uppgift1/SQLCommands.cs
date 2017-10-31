@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using Uppgift1.DAL;
 
@@ -8,6 +9,30 @@ namespace Uppgift1
     {
 
         /* ------------------------ Metoder för person ------------------------------------------------*/
+
+        public static bool CreatePerson(DataAccess dataAccess, string namn, string epost)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            string insertCommand = "INSERT INTO Person(Namn";
+            string valueCommand = "VALUES(@Namn";
+
+            parameters.Add(new SqlParameter("@Namn", namn));
+
+            if (!string.IsNullOrEmpty(epost))
+            {
+                insertCommand += ", Epost";
+                valueCommand += ", @Epost";
+                parameters.Add(new SqlParameter("@Epost", epost));
+            }
+
+            insertCommand += ") ";
+            valueCommand += ");";
+
+            var command = insertCommand + valueCommand;
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters.ToArray());
+        }
 
         public static bool DoesPersonExist(DataAccess dataAccess, int id)
         {
@@ -193,7 +218,6 @@ namespace Uppgift1
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
 
-
         public static bool DoesAdressExsist(DataAccess dataAccess, string postalCode, string adress)
         {
             DataSet dataSet = LoadAdresses();
@@ -329,7 +353,6 @@ namespace Uppgift1
 
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
-
 
         /* ---------------------- Metoder för ändra telefonnummer och telefonlista -------------- */
 
