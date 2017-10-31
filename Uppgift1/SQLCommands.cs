@@ -123,6 +123,9 @@ namespace Uppgift1
 
         public static bool UpdateNamn(DataAccess dataAccess, int id, string name)
         {
+            if (name.Length < 1)
+                return false;
+
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", id),

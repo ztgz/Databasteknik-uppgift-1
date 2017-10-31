@@ -28,7 +28,6 @@ namespace Uppgift1.UI
 
             playerIDLabel.Text = "Person id:" + id;
 
-            postOrtLabel.Text = city;
             postortTextBox.Text = city;
             StreetTextBox.Text = adress;
             postalCodeTextBox.Text = postalCode;

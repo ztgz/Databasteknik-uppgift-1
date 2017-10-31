@@ -37,7 +37,6 @@
             this.removeLabel = new System.Windows.Forms.Label();
             this.removeBTN = new System.Windows.Forms.Button();
             this.changeBTN = new System.Windows.Forms.Button();
-            this.postOrtLabel = new System.Windows.Forms.Label();
             this.postortTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -121,15 +120,6 @@
             this.changeBTN.UseVisualStyleBackColor = true;
             this.changeBTN.Click += new System.EventHandler(this.changeBTN_Click);
             // 
-            // postOrtLabel
-            // 
-            this.postOrtLabel.AutoSize = true;
-            this.postOrtLabel.Location = new System.Drawing.Point(535, 9);
-            this.postOrtLabel.Name = "postOrtLabel";
-            this.postOrtLabel.Size = new System.Drawing.Size(55, 17);
-            this.postOrtLabel.TabIndex = 10;
-            this.postOrtLabel.Text = "postOrt";
-            // 
             // postortTextBox
             // 
             this.postortTextBox.Location = new System.Drawing.Point(445, 34);
@@ -143,7 +133,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 260);
             this.Controls.Add(this.postortTextBox);
-            this.Controls.Add(this.postOrtLabel);
             this.Controls.Add(this.changeBTN);
             this.Controls.Add(this.removeBTN);
             this.Controls.Add(this.removeLabel);
@@ -171,7 +160,6 @@
         private System.Windows.Forms.Label removeLabel;
         private System.Windows.Forms.Button removeBTN;
         private System.Windows.Forms.Button changeBTN;
-        private System.Windows.Forms.Label postOrtLabel;
         private System.Windows.Forms.TextBox postortTextBox;
     }
 }
