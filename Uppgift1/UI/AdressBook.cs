@@ -113,6 +113,7 @@ namespace Uppgift1
                 DataAccess dataAccess = new DataAccess();
                 int id = (int)PersonsDataGridView[0, e.RowIndex].Value;
                 string value = Regex.Replace(PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString(), "[;]", "");
+                //string value = PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
 
                 switch (PersonsDataGridView.Columns[e.ColumnIndex].HeaderText)
                 {
@@ -123,7 +124,7 @@ namespace Uppgift1
                         SQLCommands.UpdateEpost(dataAccess, id, value);
                         break;
                     case "Nummer":
-                        SQLCommands.UpdatePhonenumber(dataAccess, id, oldCellValue,value);
+                        SQLCommands.UpdatePhonenumber(dataAccess, id, oldCellValue, value);
                         break;
                     case "Postnummer":
                     case "Gatuadress":

@@ -359,7 +359,7 @@ namespace Uppgift1
         public static DataSet LoadPhonenumbers()
         {
             var dataAccess = new DataAccess();
-            var commandText = "Select Nummer FROM Telefonnummer;";
+            var commandText = "Select Nummer as varchar FROM Telefonnummer;";
 
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
@@ -406,19 +406,20 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
-        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
+        /*public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
         {
-            var commandText = "Select count(FK_ID) from Telefonlista " +
+            var commandText = "Select * from Telefonlista " +
                               "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber + ";";
 
-            return (int)dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
-        }
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text)
+                .Tables[0].Rows.Count > 0;
+        }*/
 
         public static bool AddPhonenumberToPhonelist(DataAccess dataAccess, string phoneNumber, int Id)
         {
             if(!DoesPersonExist(dataAccess, Id))
                 return false;
-
+                
             /* Add to phonelist */
             SqlParameter[] parameters =
             {
@@ -426,7 +427,8 @@ namespace Uppgift1
                 new SqlParameter("@FK_Id", Id),
             };
 
-            var commandText = "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
+            var commandText = "DELETE FROM Telefonlista where FK_Nummer = @FK_Nummer; " +
+                              "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
@@ -454,23 +456,25 @@ namespace Uppgift1
 
             //Try to create phonnumber in database
             CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
-
-            if (!string.IsNullOrEmpty(oldPhoneumber) && DoesPersonHavePhone(dataAccess, id, oldPhoneumber))
+            
+            /*Borde vara kolla om nummer finns och isåfall köra update */
+            /*Har ej fått detta att fungera */
+            SqlParameter[] parameters =
             {
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@Nummer", newPhonenumber),
-                    new SqlParameter("@Id", id),
-                };
+                new SqlParameter("@Nummer", newPhonenumber),
+                new SqlParameter("@Id", id),
+                new SqlParameter("@OldNummer", oldPhoneumber),
+            };
 
-                string commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
+            //string commandText = "DELETE FROM Telefonlista where FK_Nummer = @OldNummer; " +
+            //                     "DELETE FROM Telefonlista where FK_Nummer = @Nummer; " +
+            //                     "INSERT INTO Telefonlista(FK_Nummer, FK_Id) VALUES(@Nummer, @Id);";
 
-                return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-            }
-            else
-            {
-                return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
-            }
+            string commandText = "DELETE FROM Telefonlista where FK_Nummer = @OldNummer;";
+
+            dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+
+            return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
         }
 
     }

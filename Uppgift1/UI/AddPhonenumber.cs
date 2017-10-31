@@ -31,7 +31,7 @@ namespace Uppgift1.UI
                 int.TryParse(idTextBox.Text, out int id))
             {
                 DataAccess dataAccess = new DataAccess();
-                if (SQLCommands.UpdatePhonenumber(dataAccess, id, "", TelefonnummerTextBox.Text))
+                if (SQLCommands.AddPhonenumberToPhonelist(dataAccess, TelefonnummerTextBox.Text, id))
                 {
                     InfoLabel.Text = "Telefonnummer har lagts till i listan.";
                 }
@@ -40,6 +40,7 @@ namespace Uppgift1.UI
                     InfoLabel.Text =
                         "Telefonnummer kunde inte läggas till.";
                 }
+
                 TelefonnummerTextBox.Text = "";
                 idTextBox.Text = "";
                 LoadPhonenumbers();
