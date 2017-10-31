@@ -111,6 +111,9 @@ namespace Uppgift1
 
         public static bool UpdatePostort(DataAccess dataAccess, string postalCode, string adress, string city)
         {
+            if (city.Length < 1)
+                return false;
+
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Postnummer", postalCode),
@@ -236,6 +239,9 @@ namespace Uppgift1
 
         public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
         {
+            if (newPhonenumber.Length < 1)
+                return false;
+
             //Try to create phonnumber in database
             CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
 
