@@ -58,6 +58,7 @@
             this.PersonsDataGridView.RowTemplate.Height = 24;
             this.PersonsDataGridView.Size = new System.Drawing.Size(1140, 298);
             this.PersonsDataGridView.TabIndex = 0;
+            this.PersonsDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.PersonsDataGridView_CellBeginEdit);
             this.PersonsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonsDataGridView_CellEndEdit);
             // 
             // DataLabel

@@ -152,7 +152,6 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
-
         public static bool DeletePerson(DataAccess dataAccess, int id)
         {
             SqlParameter[] parameters =
@@ -281,34 +280,34 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
 
-        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string number)
+        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
         {
             //Try to create phonnumber in database
-            CreatePhoneNumberInDatabase(dataAccess, number);
-
-            SqlParameter[] parameters =
+            CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
+            
+            if (!string.IsNullOrEmpty(oldPhoneumber) && DoesPersonHavePhone(dataAccess, id, oldPhoneumber))
             {
-                new SqlParameter("@Nummer", number),
-                new SqlParameter("@Id", id), 
-            };
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("@Nummer", newPhonenumber),
+                    new SqlParameter("@Id", id), 
+                };
 
-            string commandText = "";
-            if (DoesPersonHavePhone(dataAccess, id))
-            {
-                commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
+                string commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
+
+                return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
             }
             else
             {
-                
+                return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
             }
 
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
 
-        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id)
+        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
         {
             var commandText = "Select count(FK_ID) from Telefonlista " +
-                              "where FK_Id = " + id + ";";
+                              "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber +";";
 
             return (int) dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
         }

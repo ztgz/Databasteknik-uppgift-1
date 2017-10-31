@@ -169,10 +169,8 @@ namespace Uppgift1.UI
 
         private void AddPhoneNumberToPerson(DataAccess dataAccess, string phoneNumber, int Id)
         {
-            if (!SQLCommands.DoesPhoneNumberExsist(dataAccess, phoneNumber))
-            {
-                SQLCommands.CreatePhoneNumberInDatabase(dataAccess, phoneNumber);
-            }
+
+            SQLCommands.CreatePhoneNumberInDatabase(dataAccess, phoneNumber);
 
             SQLCommands.AddPhonenumberToPhonelist(dataAccess, phoneNumber, Id);
         }

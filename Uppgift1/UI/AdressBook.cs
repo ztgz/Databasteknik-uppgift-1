@@ -16,6 +16,8 @@ namespace Uppgift1
 {
     public partial class AdressBook : Form
     {
+        private string oldCellValue;
+
         public AdressBook()
         {
             InitializeComponent();
@@ -149,14 +151,10 @@ namespace Uppgift1
                         SQLCommands.UpdateEpost(dataAccess, id, value);
                         break;
                     case "Nummer":
-                        SQLCommands.UpdatePhonenumber(dataAccess, id, value);
+                        SQLCommands.UpdatePhonenumber(dataAccess, id, oldCellValue,value);
                         break;
                     case "Postnummer":
-
-                        break;
                     case "Gatuadress":
-
-                        break;
                     case "Postort":
 
                         break;
@@ -164,6 +162,15 @@ namespace Uppgift1
             }
 
             LoadAddressBook();
+        }
+
+        private void PersonsDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            //Store cell value when begining to edit
+            if (PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value != null)
+                oldCellValue = PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
+            else
+                oldCellValue = "";
         }
     }
 }
