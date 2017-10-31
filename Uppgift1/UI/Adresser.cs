@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Uppgift1.DAL;
 
@@ -29,6 +24,11 @@ namespace Uppgift1.UI
 
         private void AddAdressBTN_Click(object sender, EventArgs e)
         {
+            GatuadressTextBox.Text = Regex.Replace(GatuadressTextBox.Text, "[;]", "");
+            PostNummerTextBox.Text = Regex.Replace(PostNummerTextBox.Text, "[;]", "");
+            PostortTextBox.Text = Regex.Replace(PostortTextBox.Text, "[;]", "");
+            IdTextBox.Text = Regex.Replace(IdTextBox.Text, "[;]", "");
+
             if (!string.IsNullOrEmpty(GatuadressTextBox.Text) &&
                 !string.IsNullOrEmpty(PostNummerTextBox.Text) &&
                 !string.IsNullOrEmpty(PostortTextBox.Text) &&
