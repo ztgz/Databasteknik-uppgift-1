@@ -29,20 +29,26 @@ namespace Uppgift1.UI
 
         private void AddPhonenumberBTN_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TelefonnummerTextBox.Text))
+            if (!string.IsNullOrEmpty(TelefonnummerTextBox.Text) &&
+                int.TryParse(idTextBox.Text, out int id))
             {
                 DataAccess dataAccess = new DataAccess();
-                if (SQLCommands.CreatePhoneNumberInDatabase(dataAccess, TelefonnummerTextBox.Text))
+                if (SQLCommands.UpdatePhonenumber(dataAccess, id, "", TelefonnummerTextBox.Text))
                 {
                     InfoLabel.Text = "Telefonnummer har lagts till i listan.";
                 }
                 else
                 {
                     InfoLabel.Text =
-                        "Telefonnummer kunde inte läggas till. Vänligen se efter om det inte redan finns i listan";
+                        "Telefonnummer kunde inte läggas till.";
                 }
                 TelefonnummerTextBox.Text = "";
+                idTextBox.Text = "";
                 LoadPhonenumbers();
+            }
+            else
+            {
+                InfoLabel.Text = "Rätt nummer och id har ej angivits;";
             }
         }
 

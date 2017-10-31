@@ -95,6 +95,12 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
+        public static bool DoesPersonExist(DataAccess dataAccess, int id)
+        {
+            DataSet dataSet = LoadPersons(id, "", "");
+
+            return dataSet.Tables[0].Rows.Count > 0;
+        }
 
         public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
         {
@@ -128,6 +134,9 @@ namespace Uppgift1
 
         public static bool AddPhonenumberToPhonelist(DataAccess dataAccess, string phoneNumber, int Id)
         {
+            if(!DoesPersonExist(dataAccess, Id))
+                return false;
+
             /* Add to phonelist */
             SqlParameter[] parameters =
             {
@@ -167,10 +176,37 @@ namespace Uppgift1
            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
         
-        
+        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
+        {
+            //Try to create phonnumber in database
+            CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
 
-        
-        
+            if (!string.IsNullOrEmpty(oldPhoneumber) && DoesPersonHavePhone(dataAccess, id, oldPhoneumber))
+            {
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("@Nummer", newPhonenumber),
+                    new SqlParameter("@Id", id),
+                };
+
+                string commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
+
+                return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+            }
+            else
+            {
+                return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
+            }
+        }
+
+        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
+        {
+            var commandText = "Select count(FK_ID) from Telefonlista " +
+                              "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber + ";";
+
+            return (int)dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
+        }
+
         public static DataSet LoadPersons(string searchWord, bool jobbKontakt, bool personligKontakt, bool övrigKontakt)
         {
             var dataAccess = new DataAccess();
@@ -279,40 +315,6 @@ namespace Uppgift1
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
-
-        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
-        {
-            //Try to create phonnumber in database
-            CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
-            
-            if (!string.IsNullOrEmpty(oldPhoneumber) && DoesPersonHavePhone(dataAccess, id, oldPhoneumber))
-            {
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@Nummer", newPhonenumber),
-                    new SqlParameter("@Id", id), 
-                };
-
-                string commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
-
-                return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-            }
-            else
-            {
-                return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
-            }
-
-        }
-
-        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
-        {
-            var commandText = "Select count(FK_ID) from Telefonlista " +
-                              "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber +";";
-
-            return (int) dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
-        }
-
-
 
     }
 }
