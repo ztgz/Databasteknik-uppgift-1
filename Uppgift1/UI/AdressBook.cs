@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Uppgift1.DAL;
-using Uppgift1.Models;
 using Uppgift1.UI;
 
 namespace Uppgift1
@@ -140,7 +133,7 @@ namespace Uppgift1
             {
                 DataAccess dataAccess = new DataAccess();
                 int id = (int)PersonsDataGridView[0, e.RowIndex].Value;
-                string value = PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
+                string value = Regex.Replace(PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString(), "[;]", "");
 
                 switch (PersonsDataGridView.Columns[e.ColumnIndex].HeaderText)
                 {
