@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Uppgift1.UI
@@ -21,6 +15,10 @@ namespace Uppgift1.UI
         private void searchBTN_Click(object sender, EventArgs e)
         {
             searchResultDataGridView.DataSource = null;
+
+            PostortTextBox.Text = Regex.Replace(PostortTextBox.Text, "[;]", "");
+            NamnTextBox.Text = Regex.Replace(NamnTextBox.Text, "[;]", "");
+
 
             /*Sök 1: Bara namn
              * 2: Bara adress
