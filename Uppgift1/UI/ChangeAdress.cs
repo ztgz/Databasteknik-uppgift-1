@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Uppgift1.DAL;
 
@@ -45,6 +39,10 @@ namespace Uppgift1.UI
 
         private void changeBTN_Click(object sender, EventArgs e)
         {
+            postalCodeTextBox.Text = Regex.Replace(postalCodeTextBox.Text, "[;]", "");
+            StreetTextBox.Text = Regex.Replace(StreetTextBox.Text, "[;]", "");
+            postortTextBox.Text = Regex.Replace(postortTextBox.Text, "[;]", "");
+
             if (postalCodeTextBox.Text.Length > 0 && StreetTextBox.Text.Length > 0 && 
                 postortTextBox.Text.Length > 0)
             {
