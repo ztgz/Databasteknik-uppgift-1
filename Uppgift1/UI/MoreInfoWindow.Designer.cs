@@ -43,6 +43,7 @@
             this.moreInfoDataGridView.RowTemplate.Height = 24;
             this.moreInfoDataGridView.Size = new System.Drawing.Size(1000, 390);
             this.moreInfoDataGridView.TabIndex = 0;
+            this.moreInfoDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.moreInfoDataGridView_CellClick);
             // 
             // MoreInfoWindow
             // 

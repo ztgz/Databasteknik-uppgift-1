@@ -135,7 +135,6 @@ namespace Uppgift1
                         if (!string.IsNullOrEmpty(postalCode) && !string.IsNullOrEmpty(adress))
                             SQLCommands.UpdatePostort(dataAccess, postalCode, adress, value);
                         break;
-
                 }
             }
 
@@ -149,7 +148,6 @@ namespace Uppgift1
                 oldCellValue = PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
             else
                 oldCellValue = "";
-            
         }
 
         private void PersonsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
