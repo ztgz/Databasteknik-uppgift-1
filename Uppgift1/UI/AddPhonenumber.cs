@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Uppgift1.DAL;
 
@@ -29,6 +24,9 @@ namespace Uppgift1.UI
 
         private void AddPhonenumberBTN_Click(object sender, EventArgs e)
         {
+            TelefonnummerTextBox.Text = Regex.Replace(TelefonnummerTextBox.Text, "[;]", "");
+            idTextBox.Text = Regex.Replace(idTextBox.Text, "[;]", "");
+
             if (!string.IsNullOrEmpty(TelefonnummerTextBox.Text) &&
                 int.TryParse(idTextBox.Text, out int id))
             {
