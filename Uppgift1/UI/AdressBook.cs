@@ -155,9 +155,15 @@ namespace Uppgift1
                         break;
                     case "Postnummer":
                     case "Gatuadress":
-                    case "Postort":
-
                         break;
+                    case "Postort":
+                        string postalCode = PersonsDataGridView[4, e.RowIndex].Value.ToString();
+                        string adress = PersonsDataGridView[5, e.RowIndex].Value.ToString();
+
+                        if (!string.IsNullOrEmpty(postalCode) && !string.IsNullOrEmpty(adress))
+                            SQLCommands.UpdatePostort(dataAccess, postalCode, adress, value);
+                        break;
+
                 }
             }
 

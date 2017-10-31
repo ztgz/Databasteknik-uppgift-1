@@ -79,10 +79,5 @@ namespace Uppgift1.UI
             LoadAdresses();
         }
 
-        private void addresserDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            var newValue = addresserDataGridView[e.ColumnIndex, e.RowIndex].Value;
-            var columnName = addresserDataGridView.Columns[e.ColumnIndex].HeaderText;
-        }
     }
 }

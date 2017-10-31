@@ -67,7 +67,6 @@
             this.addresserDataGridView.RowTemplate.Height = 24;
             this.addresserDataGridView.Size = new System.Drawing.Size(856, 282);
             this.addresserDataGridView.TabIndex = 0;
-            this.addresserDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.addresserDataGridView_CellEndEdit);
             // 
             // label1
             // 

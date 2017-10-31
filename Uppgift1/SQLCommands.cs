@@ -105,6 +105,21 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
 
+        public static bool UpdatePostort(DataAccess dataAccess, string postalCode, string adress, string city)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Postnummer", postalCode),
+                new SqlParameter("@Gatuadress", adress),
+                new SqlParameter("@Postort", city),
+            };
+
+            var commandText = "UPDATE Adress set Postort = @Postort " +
+                              "Where Postnummer = @Postnummer and Gatuadress = @Gatuadress;";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
         public static bool DeleteAdress(DataAccess dataAccess, string postalCode, string adress)
         {
             SqlParameter[] parameters =
@@ -199,7 +214,22 @@ namespace Uppgift1
 
            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
-        
+
+        //public static bool DeletePerson(DataAccess dataAccess, int id, string jobb)
+        //{
+        //    SqlParameter[] parameters =
+        //    {
+        //        new SqlParameter("@Id", id),
+        //    };
+
+        //    var command = "DELETE From ÖvrigKontakt WHERE FK_Id = @Id;";
+        //    command += "DELETE From JobbKontakt WHERE FK_Id = @Id;";
+        //    command += "DELETE From PersonligKontakt WHERE FK_Id = @Id;";
+        //    command += "DELETE FROM Person where Id = @Id;";
+
+        //    return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        //}
+
         public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
         {
             //Try to create phonnumber in database
