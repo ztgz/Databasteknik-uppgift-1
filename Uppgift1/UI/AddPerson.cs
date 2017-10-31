@@ -177,7 +177,8 @@ namespace Uppgift1.UI
 
         private void AddAdressToPerson(DataAccess dataAccess, string postalCode, string adress, string city, int Id)
         {
-            SQLCommands.AddAdressToAdressregister(dataAccess, postalCode, adress, city, Id);
+            //SQLCommands.AddAdressToAdressregister(dataAccess, postalCode, adress, city, Id);            
+            SQLCommands.CreateAdressInRegister(dataAccess, postalCode, adress, city, Id);
         }
     }
 }

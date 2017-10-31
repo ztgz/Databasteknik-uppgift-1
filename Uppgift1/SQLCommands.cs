@@ -13,235 +13,13 @@ namespace Uppgift1
     static class SQLCommands
     {
 
-        public static DataSet LoadAdresses()
-        {
-            var dataAccess = new DataAccess();
-            var commandText = "Select Postnummer, Gatuadress, Postort FROM Adress " +
-                              "ORDER BY Postnummer;";
-
-            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-        }
-
-        public static DataSet LoadPhonenumbers()
-        {
-            var dataAccess = new DataAccess();
-            var commandText = "Select Nummer FROM Telefonnummer;";
-
-            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-        }
-
-        public static bool DoesAdressExsist(DataAccess dataAccess, string postalCode, string adress)
-        {
-            DataSet dataSet = LoadAdresses();
-
-            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-            {
-                if ((string)dataSet.Tables[0].Rows[i][0] == postalCode &&
-                    (string)dataSet.Tables[0].Rows[i][1] == adress)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public static bool CreateAdressInRegister(DataAccess dataAccess, string postalCode, string adress, 
-            string city, int id)
-        {
-            if (!DoesPersonExist(dataAccess, id))
-                return false;
-
-            if (!CreateAdressInDatabase(dataAccess, postalCode, adress, city))
-            {
-                //Man kan behöva uppdatera postort i databas
-                UpdatePostort(dataAccess, postalCode, adress, city);
-            }
-
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Id", id),
-                new SqlParameter("@FK_Postnummer", postalCode),
-                new SqlParameter("@FK_Gatuadress", adress),
-            };
-
-            DeleteAdressInRegister(dataAccess, postalCode, adress, id);
-            var commandText = "insert into Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " +
-                           "values(@FK_id, @FK_Postnummer, @FK_Gatuadress);";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool DeleteAdressInRegister(DataAccess dataAccess, string postalCode, 
-            string adress, int id)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Id", id),
-                new SqlParameter("@FK_Postnummer", postalCode),
-                new SqlParameter("@FK_Gatuadress", adress),
-            };
-
-            var commandText = "delete from Adressregister where " +
-                              "FK_id = @FK_Id and FK_Postnummer = @FK_Postnummer " +
-                              "and FK_Gatuadress = @FK_Gatuadress;";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool CreateAdressInDatabase(DataAccess dataAccess, string postalCode, string adress, string city)
-        {
-            if (DoesAdressExsist(dataAccess, postalCode, adress))
-                return false;
-            
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Postnummer", postalCode),
-                new SqlParameter("@Gatuadress", adress),
-                new SqlParameter("@Postort", city),
-            };
-
-            string commandText = "INSERT INTO Adress(Postnummer, Gatuadress, Postort) " + "values(@Postnummer, @Gatuadress, @Postort);";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool AddAdressToAdressregister(DataAccess dataAccess, string postalCode, string adress,
-            string city, int Id)
-        {
-            CreateAdressInDatabase(dataAccess, postalCode, adress, city);
-
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Id", Id),
-                new SqlParameter("@FK_Postnummer", postalCode),
-                new SqlParameter("@FK_Gatuadress", adress),
-            };
-
-            string commandText = "INSERT INTO Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " + 
-                "values(@FK_Id, @FK_Postnummer, @FK_Gatuadress);";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool ChangePersonAdress(DataAccess dataAccess, string oldPostalCode, string oldAdress, string oldCity, 
-            string newPostalCode, string newAdress, string newCity, int id)
-        {
-            DeleteAdressInRegister(dataAccess, oldPostalCode, oldAdress, id);
-
-            return AddAdressToAdressregister(dataAccess, newPostalCode, newAdress, newCity, id);
-        }
-
-        public static bool UpdatePostort(DataAccess dataAccess, string postalCode, string adress, string city)
-        {
-            if (city.Length < 1)
-                return false;
-
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Postnummer", postalCode),
-                new SqlParameter("@Gatuadress", adress),
-                new SqlParameter("@Postort", city),
-            };
-
-            var commandText = "UPDATE Adress set Postort = @Postort " +
-                              "Where Postnummer = @Postnummer and Gatuadress = @Gatuadress;";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool DeleteAdress(DataAccess dataAccess, string postalCode, string adress)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Postnummer", postalCode),
-                new SqlParameter("@Gatuadress", adress),
-            };
-
-            var command = "DELETE FROM Adress where Postnummer = @Postnummer " +
-                           "AND Gatuadress = @Gatuadress;";
-
-            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
-        }
+        /* ------------------------ Metoder för person ------------------------------------------------*/
 
         public static bool DoesPersonExist(DataAccess dataAccess, int id)
         {
             DataSet dataSet = LoadPersons(id, "", "");
 
             return dataSet.Tables[0].Rows.Count > 0;
-        }
-
-        public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
-        {
-            DataSet dataSet = LoadPhonenumbers();
-
-            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-            {
-                if ((string)dataSet.Tables[0].Rows[i][0] == phoneNumber)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public static bool CreatePhoneNumberInDatabase(DataAccess dataAccess, string phoneNumber)
-        {
-            if (DoesPhoneNumberExsist(dataAccess, phoneNumber))
-                return false;
-
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Nummer", phoneNumber),
-            };
-
-            string commandText = "INSERT INTO Telefonnummer(Nummer) " + "values(@Nummer);";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool AddPhonenumberToPhonelist(DataAccess dataAccess, string phoneNumber, int Id)
-        {
-            if(!DoesPersonExist(dataAccess, Id))
-                return false;
-
-            /* Add to phonelist */
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Nummer", phoneNumber),
-                new SqlParameter("@FK_Id", Id),
-            };
-
-            var commandText = "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
-
-            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        public static bool DeletePhonenumber(DataAccess dataAccess, string phonenumber)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Nummer", phonenumber),
-            };
-
-            var command = "DELETE FROM Telefonnummer where Nummer = @Nummer;";
-
-            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
-        }
-
-        public static bool DeletePhonenumberFromList(DataAccess dataAccess, string phonenumber, int id)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Nummer", phonenumber),
-                new SqlParameter("@Id", id), 
-            };
-
-            var command = "DELETE FROM Telefonlista where FK_Nummer = @Nummer " +
-                          "and FK_Id = @Id;";
-
-            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
         public static bool DeletePerson(DataAccess dataAccess, int id)
@@ -256,43 +34,7 @@ namespace Uppgift1
             command += "DELETE From PersonligKontakt WHERE FK_Id = @Id;";
             command += "DELETE FROM Person where Id = @Id;";
 
-           return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
-        }
-
-        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
-        {
-            if (newPhonenumber.Length < 1)
-            {
-                return DeletePhonenumberFromList(dataAccess, oldPhoneumber, id);
-            }
-
-            //Try to create phonnumber in database
-            CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
-
-            if (!string.IsNullOrEmpty(oldPhoneumber) && DoesPersonHavePhone(dataAccess, id, oldPhoneumber))
-            {
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@Nummer", newPhonenumber),
-                    new SqlParameter("@Id", id),
-                };
-
-                string commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
-
-                return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-            }
-            else
-            {
-                return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
-            }
-        }
-
-        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
-        {
-            var commandText = "Select count(FK_ID) from Telefonlista " +
-                              "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber + ";";
-
-            return (int)dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
         public static DataSet LoadPersons(string searchWord, bool jobbKontakt, bool personligKontakt, bool övrigKontakt)
@@ -366,21 +108,11 @@ namespace Uppgift1
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
 
-        public static DataSet LoadAdress(string searchWord)
-        {
-            var dataAccess = new DataAccess();
-            var commandText = "Select a.Postnummer, a.Gatuadress, a.Postort From Adress a";
-
-            commandText += " where a.Postort like('%" + searchWord + "%');";
-
-            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-        }
-
         public static bool UpdateEpost(DataAccess dataAccess, int id, string Epost)
         {
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", id), 
+                new SqlParameter("@Id", id),
                 new SqlParameter("@Epost", Epost),
             };
 
@@ -400,6 +132,284 @@ namespace Uppgift1
             string commandText = "UPDATE Person Set Namn = @Namn where Id = @id";
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+
+        /* ----------------------- Metoder för att ändra adress och adressregister ---------------------*/
+        public static DataSet LoadAdresses()
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "Select Postnummer, Gatuadress, Postort FROM Adress " +
+                              "ORDER BY Postnummer;";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+
+        public static DataSet LoadAdress(string searchWord)
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "Select a.Postnummer, a.Gatuadress, a.Postort From Adress a";
+
+            commandText += " where a.Postort like('%" + searchWord + "%');";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+
+
+        public static bool DoesAdressExsist(DataAccess dataAccess, string postalCode, string adress)
+        {
+            DataSet dataSet = LoadAdresses();
+
+            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+            {
+                if ((string)dataSet.Tables[0].Rows[i][0] == postalCode &&
+                    (string)dataSet.Tables[0].Rows[i][1] == adress)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CreateAdressInDatabase(DataAccess dataAccess, string postalCode, string adress, string city)
+        {
+            if (DoesAdressExsist(dataAccess, postalCode, adress))
+                return false;
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Postnummer", postalCode),
+                new SqlParameter("@Gatuadress", adress),
+                new SqlParameter("@Postort", city),
+            };
+
+            string commandText = "INSERT INTO Adress(Postnummer, Gatuadress, Postort) " + "values(@Postnummer, @Gatuadress, @Postort);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool CreateAdressInRegister(DataAccess dataAccess, string postalCode, string adress,
+            string city, int id)
+        {
+            if (!DoesPersonExist(dataAccess, id))
+                return false;
+
+            if (!CreateAdressInDatabase(dataAccess, postalCode, adress, city))
+            {
+                //Man kan behöva uppdatera postort i databas
+                UpdatePostort(dataAccess, postalCode, adress, city);
+            }
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", id),
+                new SqlParameter("@FK_Postnummer", postalCode),
+                new SqlParameter("@FK_Gatuadress", adress),
+            };
+
+            DeleteAdressInRegister(dataAccess, postalCode, adress, id);
+            var commandText = "insert into Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " +
+                           "values(@FK_id, @FK_Postnummer, @FK_Gatuadress);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool DeleteAdressInRegister(DataAccess dataAccess, string postalCode,
+            string adress, int id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", id),
+                new SqlParameter("@FK_Postnummer", postalCode),
+                new SqlParameter("@FK_Gatuadress", adress),
+            };
+
+            var commandText = "delete from Adressregister where " +
+                              "FK_id = @FK_Id and FK_Postnummer = @FK_Postnummer " +
+                              "and FK_Gatuadress = @FK_Gatuadress;";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        /*
+        public static bool AddAdressToAdressregister(DataAccess dataAccess, string postalCode, string adress,
+            string city, int Id)
+        {
+            CreateAdressInDatabase(dataAccess, postalCode, adress, city);
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", Id),
+                new SqlParameter("@FK_Postnummer", postalCode),
+                new SqlParameter("@FK_Gatuadress", adress),
+            };
+
+            string commandText = "INSERT INTO Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " +
+                "values(@FK_Id, @FK_Postnummer, @FK_Gatuadress);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }*/
+
+        public static bool ChangePersonAdress(DataAccess dataAccess, string oldPostalCode, string oldAdress, string oldCity,
+            string newPostalCode, string newAdress, string newCity, int id)
+        {
+            DeleteAdressInRegister(dataAccess, oldPostalCode, oldAdress, id);
+
+           // return AddAdressToAdressregister(dataAccess, newPostalCode, newAdress, newCity, id);
+           return CreateAdressInRegister(dataAccess, newPostalCode, newAdress, newCity, id);
+        }
+
+        public static bool UpdatePostort(DataAccess dataAccess, string postalCode, string adress, string city)
+        {
+            if (city.Length < 1)
+                return false;
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Postnummer", postalCode),
+                new SqlParameter("@Gatuadress", adress),
+                new SqlParameter("@Postort", city),
+            };
+
+            var commandText = "UPDATE Adress set Postort = @Postort " +
+                              "Where Postnummer = @Postnummer and Gatuadress = @Gatuadress;";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool DeleteAdress(DataAccess dataAccess, string postalCode, string adress)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Postnummer", postalCode),
+                new SqlParameter("@Gatuadress", adress),
+            };
+
+            var command = "DELETE FROM Adress where Postnummer = @Postnummer " +
+                           "AND Gatuadress = @Gatuadress;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
+
+        /* ---------------------- Metoder för ändra telefonnummer och telefonlista -------------- */
+
+        public static DataSet LoadPhonenumbers()
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "Select Nummer FROM Telefonnummer;";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+        
+        public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
+        {
+            DataSet dataSet = LoadPhonenumbers();
+
+            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+            {
+                if ((string)dataSet.Tables[0].Rows[i][0] == phoneNumber)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CreatePhoneNumberInDatabase(DataAccess dataAccess, string phoneNumber)
+        {
+            if (DoesPhoneNumberExsist(dataAccess, phoneNumber))
+                return false;
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phoneNumber),
+            };
+
+            string commandText = "INSERT INTO Telefonnummer(Nummer) " + "values(@Nummer);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool DeletePhonenumber(DataAccess dataAccess, string phonenumber)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phonenumber),
+            };
+
+            var command = "DELETE FROM Telefonnummer where Nummer = @Nummer;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
+        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
+        {
+            var commandText = "Select count(FK_ID) from Telefonlista " +
+                              "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber + ";";
+
+            return (int)dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows[0][0] > 0;
+        }
+
+        public static bool AddPhonenumberToPhonelist(DataAccess dataAccess, string phoneNumber, int Id)
+        {
+            if(!DoesPersonExist(dataAccess, Id))
+                return false;
+
+            /* Add to phonelist */
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Nummer", phoneNumber),
+                new SqlParameter("@FK_Id", Id),
+            };
+
+            var commandText = "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool DeletePhonenumberFromList(DataAccess dataAccess, string phonenumber, int id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phonenumber),
+                new SqlParameter("@Id", id), 
+            };
+
+            var command = "DELETE FROM Telefonlista where FK_Nummer = @Nummer " +
+                          "and FK_Id = @Id;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
+        public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
+        {
+            if (newPhonenumber.Length < 1)
+            {
+                return DeletePhonenumberFromList(dataAccess, oldPhoneumber, id);
+            }
+
+            //Try to create phonnumber in database
+            CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
+
+            if (!string.IsNullOrEmpty(oldPhoneumber) && DoesPersonHavePhone(dataAccess, id, oldPhoneumber))
+            {
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("@Nummer", newPhonenumber),
+                    new SqlParameter("@Id", id),
+                };
+
+                string commandText = "UPDATE Telefonlista Set FK_Nummer = @Nummer where FK_Id = @Id;";
+
+                return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+            }
+            else
+            {
+                return AddPhonenumberToPhonelist(dataAccess, newPhonenumber, id);
+            }
         }
 
     }
