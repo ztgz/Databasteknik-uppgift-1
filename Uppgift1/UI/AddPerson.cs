@@ -113,13 +113,6 @@ namespace Uppgift1.UI
 
             parameters.Add(new SqlParameter("@Namn", Namn));
 
-            /*if (!String.IsNullOrEmpty(Telefon))
-            {
-                insertCommand += ", Telefon";
-                valueCommand += ", @Telefon";
-                parameters.Add(new SqlParameter("@Telefon", Telefon));
-            }*/
-
             if (!string.IsNullOrEmpty(Epost))
             {
                 insertCommand += ", Epost";
@@ -176,48 +169,12 @@ namespace Uppgift1.UI
 
         private void AddPhoneNumberToPerson(DataAccess dataAccess, string phoneNumber, int Id)
         {
-            /*Check if number exists*/
-            bool numberExists = false;
-            
-            DataSet dataSet = new DataSet();
-
-            var commandText = "Select Nummer FROM Telefonnummer";
-
-            dataSet = dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-
-            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+            if (!SQLCommands.DoesPhoneNumberExsist(dataAccess, phoneNumber))
             {
-                if ((string)dataSet.Tables[0].Rows[i][0] == phoneNumber)
-                {
-                    numberExists = true;
-                    break;
-                }
+                SQLCommands.CreatePhoneNumberInDatabase(dataAccess, phoneNumber);
             }
 
-            SqlParameter[] parameters;
-            /* If number does not exsist, add number*/
-            if (!numberExists)
-            {
-                parameters = new SqlParameter[]
-                {
-                    new SqlParameter("@phoneNumber", phoneNumber), 
-                };
-
-                commandText = "INSERT INTO Telefonnummer " + "values(@phoneNumber);";
-
-                dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-            }
-
-            /* Add to phonelist */
-            parameters = new SqlParameter[]
-            {
-                new SqlParameter("@FK_Nummer", phoneNumber),
-                new SqlParameter("@FK_Id", Id), 
-            };
-
-            commandText = "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
-
-            dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+            SQLCommands.AddPhonenumberToPhonelist(dataAccess, phoneNumber, Id);
         }
 
         private void AddAdressToPerson(DataAccess dataAccess, string postalCode, string adress, string city, int Id)

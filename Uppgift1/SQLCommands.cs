@@ -95,33 +95,7 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
-        public static bool DeletePhonenumber(DataAccess dataAccess, string phonenumber)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Nummer", phonenumber),
-            };
 
-            var command = "DELETE FROM Telefonnummer where Nummer = @Nummer;";
-
-            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
-        }
-
-        public static bool DeletePerson(DataAccess dataAccess, int id)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Id", id),
-            };
-
-            var command = "DELETE From ÖvrigKontakt WHERE FK_Id = @Id;";
-            command += "DELETE From JobbKontakt WHERE FK_Id = @Id;";
-            command += "DELETE From PersonligKontakt WHERE FK_Id = @Id;";
-            command += "DELETE FROM Person where Id = @Id;";
-
-           return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
-        }
-        
         public static bool DoesPhoneNumberExsist(DataAccess dataAccess, string phoneNumber)
         {
             DataSet dataSet = LoadPhonenumbers();
@@ -151,6 +125,52 @@ namespace Uppgift1
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
+
+        public static bool AddPhonenumberToPhonelist(DataAccess dataAccess, string phoneNumber, int Id)
+        {
+            /* Add to phonelist */
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Nummer", phoneNumber),
+                new SqlParameter("@FK_Id", Id),
+            };
+
+            var commandText = "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool DeletePhonenumber(DataAccess dataAccess, string phonenumber)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phonenumber),
+            };
+
+            var command = "DELETE FROM Telefonnummer where Nummer = @Nummer;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
+
+        public static bool DeletePerson(DataAccess dataAccess, int id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Id", id),
+            };
+
+            var command = "DELETE From ÖvrigKontakt WHERE FK_Id = @Id;";
+            command += "DELETE From JobbKontakt WHERE FK_Id = @Id;";
+            command += "DELETE From PersonligKontakt WHERE FK_Id = @Id;";
+            command += "DELETE FROM Person where Id = @Id;";
+
+           return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+        
+        
+
+        
         
         public static DataSet LoadPersons(string searchWord, bool jobbKontakt, bool personligKontakt, bool övrigKontakt)
         {
@@ -163,38 +183,6 @@ namespace Uppgift1
             if (övrigKontakt)
                 commandText += " RIGHT JOIN ÖvrigKontakt on p.Id = ÖvrigKontakt.FK_Id";
             commandText += " where p.Namn like('%" + searchWord + "%');";
-
-            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-        }
-
-        public static DataSet LoadAdress(string searchWord)
-        {
-            var dataAccess = new DataAccess();
-            var commandText = "Select a.Postnummer, a.Gatuadress, a.Postort From Adress a";
-
-            commandText += " where a.Postort like('%" + searchWord + "%');";
-
-            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
-        }
-
-        public static DataSet LoadPersonsWithAdress(string searchWordNamn, string searchWordOrt
-            , bool jobbKontakt, bool personligKontakt, bool övrigKontakt)
-        {
-            var dataAccess = new DataAccess();
-            var commandText = "SELECT p.Id, p.Namn, Postnummer, Gatuadress, Postort " +
-                              "FROM Person p " +
-                              "LEFT JOIN Adressregister ON p.Id = Adressregister.FK_Id " +
-                              "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
-                              "Adressregister.FK_Gatuadress = Adress.Gatuadress ";
-            if (jobbKontakt)
-                commandText += "RIGHT JOIN JobbKontakt on p.Id = JobbKontakt.FK_Id ";
-            if (personligKontakt)
-                commandText += "RIGHT JOIN PersonligKontakt on p.Id = PersonligKontakt.FK_Id ";
-            if (övrigKontakt)
-                commandText += "RIGHT JOIN ÖvrigKontakt on p.Id = ÖvrigKontakt.FK_Id ";
-
-            commandText += "where p.Namn like('%" + searchWordNamn + "%') and " +
-                              "Postort like('%" + searchWordOrt + "%');";
 
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
@@ -233,6 +221,40 @@ namespace Uppgift1
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
 
+        public static DataSet LoadPersonsWithAdress(string searchWordNamn, string searchWordOrt
+            , bool jobbKontakt, bool personligKontakt, bool övrigKontakt)
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "SELECT p.Id, p.Namn, Postnummer, Gatuadress, Postort " +
+                              "FROM Person p " +
+                              "LEFT JOIN Adressregister ON p.Id = Adressregister.FK_Id " +
+                              "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
+                              "Adressregister.FK_Gatuadress = Adress.Gatuadress ";
+            if (jobbKontakt)
+                commandText += "RIGHT JOIN JobbKontakt on p.Id = JobbKontakt.FK_Id ";
+            if (personligKontakt)
+                commandText += "RIGHT JOIN PersonligKontakt on p.Id = PersonligKontakt.FK_Id ";
+            if (övrigKontakt)
+                commandText += "RIGHT JOIN ÖvrigKontakt on p.Id = ÖvrigKontakt.FK_Id ";
+
+            commandText += "where p.Namn like('%" + searchWordNamn + "%') and " +
+                           "Postort like('%" + searchWordOrt + "%');";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+
+        public static DataSet LoadAdress(string searchWord)
+        {
+            var dataAccess = new DataAccess();
+            var commandText = "Select a.Postnummer, a.Gatuadress, a.Postort From Adress a";
+
+            commandText += " where a.Postort like('%" + searchWord + "%');";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
+        }
+
+        
+        
         public static bool UpdateEpost(DataAccess dataAccess, int id, string Epost)
         {
             SqlParameter[] parameters =
