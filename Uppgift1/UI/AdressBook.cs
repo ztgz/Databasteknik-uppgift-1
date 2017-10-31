@@ -148,11 +148,11 @@ namespace Uppgift1
                         break;
                     case "Postnummer":
                     case "Gatuadress":
-                        ChangeAdress changeAdressWindow = new ChangeAdress(PersonsDataGridView[4, e.RowIndex].Value.ToString(),
-                            PersonsDataGridView[5, e.RowIndex].Value.ToString(), 
-                            PersonsDataGridView[6, e.RowIndex].Value.ToString(), id);
+                        //ChangeAdress changeAdressWindow = new ChangeAdress(PersonsDataGridView[4, e.RowIndex].Value.ToString(),
+                        //    PersonsDataGridView[5, e.RowIndex].Value.ToString(), 
+                        //    PersonsDataGridView[6, e.RowIndex].Value.ToString(), id);
 
-                        changeAdressWindow.Show();
+                        //changeAdressWindow.Show();
                         break;
                     case "Postort":
                         string postalCode = PersonsDataGridView[4, e.RowIndex].Value.ToString();
@@ -193,6 +193,16 @@ namespace Uppgift1
                     PersonsDataGridView[6, e.RowIndex].Value.ToString(), id);
 
                 changeAdressWindow.Show();
+            }
+            else if(PersonsDataGridView.Columns[e.ColumnIndex].HeaderText == "Id")
+            {
+                int id = (int)PersonsDataGridView[0, e.RowIndex].Value;
+                DataAccess dataAccess = new DataAccess();
+                ChangeTypOfContact typOfContactForm = new ChangeTypOfContact(id,
+                    SQLCommands.PersonIsJobbKontakt(dataAccess, id),
+                    SQLCommands.PersonIsPersonligKontakt(dataAccess, id),
+                    SQLCommands.PersonIsÖvrigKontakt(dataAccess, id));
+                typOfContactForm.Show();
             }
         }
     }

@@ -131,6 +131,47 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
 
+        public static bool PersonIsJobbKontakt(DataAccess dataAccess, int id)
+        {
+            var commandText = "Select * from JobbKontakt where FK_Id = " + id + ";";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows.Count > 0;
+        }
+
+        public static bool PersonIsPersonligKontakt(DataAccess dataAccess, int id)
+        {
+            var commandText = "Select * from PersonligKontakt where FK_Id = " + id + ";";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows.Count > 0;
+        }
+
+        public static bool PersonIsÖvrigKontakt(DataAccess dataAccess, int id)
+        {
+            var commandText = "Select * from ÖvrigKontakt where FK_Id = " + id + ";";
+
+            return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text).Tables[0].Rows.Count > 0;
+        }
+
+        public static bool ChangeKontakt(DataAccess dataAccess, int id, bool isJobb, bool isPersonlig, bool isÖvrig)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", id),
+            };
+
+            var commandText = "DELETE FROM ÖvrigKontakt where FK_Id = @FK_id; ";
+            commandText += "DELETE FROM PersonligKontakt where FK_Id = @FK_id; ";
+            commandText += "DELETE FROM JobbKontakt where FK_Id = @FK_id; ";
+            //dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+            if (isÖvrig)
+                commandText += " INSERT INTO ÖvrigKontakt(FK_Id) VALUES(@FK_Id);";
+            if(isPersonlig)
+                commandText += " INSERT INTO PersonligKontakt(FK_Id) VALUES(@FK_Id);";
+            if(isJobb)
+                commandText += " INSERT INTO JobbKontakt(FK_Id) VALUES(@FK_Id);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
 
         /* ----------------------- Metoder för att ändra adress och adressregister ---------------------*/
         public static DataSet LoadAdresses()

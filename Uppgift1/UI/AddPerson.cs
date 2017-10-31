@@ -35,14 +35,9 @@ namespace Uppgift1.UI
                 /* Get the id of the last added person */
                 int Id = GetIdOfLastPersonInList(dataAccess);
 
-                if (JobbKontaktCheckBox.Checked)
-                    CreateJobbKontakt(dataAccess, Id);
 
-                if (PersonligKontaktCheckBox.Checked)
-                    CreatePersonligKontakt(dataAccess, Id);
-
-                if (ÖvrigKontaktCheckBox.Checked)
-                    CreateÖvrigKontakt(dataAccess, Id);
+                SQLCommands.ChangeKontakt(dataAccess, Id, JobbKontaktCheckBox.Checked,
+                    PersonligKontaktCheckBox.Checked, ÖvrigKontaktCheckBox.Checked);
 
                 // If Postnumber and gatuaddres exsists, add address
                 if (!string.IsNullOrEmpty(PostnummerTextbox.Text) && !string.IsNullOrEmpty(GatuadressTextbox.Text)
@@ -129,45 +124,6 @@ namespace Uppgift1.UI
             var command = insertCommand + valueCommand;
 
             dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters.ToArray());
-        }
-
-        private void CreateJobbKontakt(DataAccess dataAccess, int Id)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Id", Id), 
-            };
-
-            var commandText = "INSERT INTO JobbKontakt(FK_Id) " +
-                              "VALUES(@FK_Id);";
-
-            dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        private void CreatePersonligKontakt(DataAccess dataAccess, int Id)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Id", Id),
-            };
-
-            var commandText = "INSERT INTO PersonligKontakt(FK_Id) " +
-                              "VALUES(@FK_Id);";
-
-            dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
-        }
-
-        private void CreateÖvrigKontakt(DataAccess dataAccess, int Id)
-        {
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@FK_Id", Id),
-            };
-
-            var commandText = "INSERT INTO ÖvrigKontakt(FK_Id) " +
-                              "VALUES(@FK_Id);";
-
-            dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
 
         private void AddPhoneNumberToPerson(DataAccess dataAccess, string phoneNumber, int Id)

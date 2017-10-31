@@ -90,6 +90,12 @@
     <Compile Include="UI\Adresser.Designer.cs">
       <DependentUpon>Adresser.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ChangeTypOfContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChangeTypOfContact.Designer.cs">
+      <DependentUpon>ChangeTypOfContact.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MoreInfoWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Adresser.resx">
       <DependentUpon>Adresser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChangeTypOfContact.resx">
+      <DependentUpon>ChangeTypOfContact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MoreInfoWindow.resx">
       <DependentUpon>MoreInfoWindow.cs</DependentUpon>
