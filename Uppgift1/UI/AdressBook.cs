@@ -27,56 +27,35 @@ namespace Uppgift1
         private void LoadAddressBook()
         {
             var dataAccess = new DataAccess();
-            var commandText = "Select Id, Namn, Epost FROM Person;";
 
+            var commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort ";
 
             if (AllaRadioBtn.Checked)
             {
-                commandText = "SELECT p.Id, p.Namn, p.Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
-                                  "FROM Person p LEFT JOIN Telefonlista ON p.Id = Telefonlista.FK_Id " +
-                                  "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
-                                  "LEFT JOIN Adressregister ON p.Id = Adressregister.FK_Id " +
-                                  "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
-                                  "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
-
+                commandText += "FROM Person ";
                 DataLabel.Text = "Alla Kontakter";
             }
             else if (JobbRadioBTN.Checked)
             {
-                commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
-                              "From JobbKontakt LEFT JOIN Person ON JobbKontakt.FK_Id = Person.Id " +
-                              "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
-                              "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
-                              "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
-                              "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
-                              "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
-
+                commandText += "From JobbKontakt LEFT JOIN Person ON JobbKontakt.FK_Id = Person.Id ";
                 DataLabel.Text = "Jobb Kontakter";
             }
             else if (PersonligRadioBTN.Checked)
             {
-                commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
-                              "From [PersonligKontakt] LEFT JOIN Person ON [PersonligKontakt].FK_Id = Person.Id " +
-                              "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
-                              "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
-                              "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
-                              "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
-                              "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
-
+                commandText += "From [PersonligKontakt] LEFT JOIN Person ON [PersonligKontakt].FK_Id = Person.Id ";
                 DataLabel.Text = "Personliga Kontakter";
             }
             else if (ÖvrigRadioBTN.Checked)
             {
-                commandText = "SELECT Person.Id, Namn, Epost, Telefonnummer.Nummer, Postnummer, Gatuadress, Postort " +
-                              "From [ÖvrigKontakt] LEFT JOIN Person ON [ÖvrigKontakt].FK_Id = Person.Id " +
-                              "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
-                              "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
-                              "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
-                              "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
-                              "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
-
+                commandText += "From [ÖvrigKontakt] LEFT JOIN Person ON [ÖvrigKontakt].FK_Id = Person.Id ";
                 DataLabel.Text = "Övriga Kontakter";
             }
+
+            commandText += "LEFT JOIN Telefonlista ON Person.Id = Telefonlista.FK_Id " +
+                           "LEFT JOIN Telefonnummer ON Telefonlista.FK_Nummer = Telefonnummer.Nummer " +
+                           "LEFT JOIN Adressregister ON Person.Id = Adressregister.FK_Id " +
+                           "LEFT JOIN Adress ON Adressregister.FK_Postnummer = Adress.Postnummer AND " +
+                           "Adressregister.FK_Gatuadress = Adress.Gatuadress;";
 
             DataSet persons = dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
 
@@ -148,11 +127,6 @@ namespace Uppgift1
                         break;
                     case "Postnummer":
                     case "Gatuadress":
-                        //ChangeAdress changeAdressWindow = new ChangeAdress(PersonsDataGridView[4, e.RowIndex].Value.ToString(),
-                        //    PersonsDataGridView[5, e.RowIndex].Value.ToString(), 
-                        //    PersonsDataGridView[6, e.RowIndex].Value.ToString(), id);
-
-                        //changeAdressWindow.Show();
                         break;
                     case "Postort":
                         string postalCode = PersonsDataGridView[4, e.RowIndex].Value.ToString();
