@@ -46,6 +46,30 @@ namespace Uppgift1
             return false;
         }
 
+        public static bool CreateAdressInRegister(DataAccess dataAccess, string postalCode, string adress, 
+            string city, int id)
+        {
+            if (!DoesPersonExist(dataAccess, id))
+                return false;
+
+            CreateAdressInDatabase(dataAccess, postalCode, adress, city);
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", id),
+                new SqlParameter("@FK_Postnummer", postalCode),
+                new SqlParameter("@FK_Gatuadress", adress),
+            };
+
+            var commandText = "delete from Adressregister where " +
+                "FK_id = @FK_Id and FK_Postnummer = @FK_Postnummer " +
+                "and FK_Gatuadress = @FK_Gatuadress;";
+            commandText += " insert into Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " +
+                           "values(@FK_id, @FK_Postnummer, @FK_Gatuadress);";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+        
         public static bool CreateAdressInDatabase(DataAccess dataAccess, string postalCode, string adress, string city)
         {
             if (DoesAdressExsist(dataAccess, postalCode, adress))

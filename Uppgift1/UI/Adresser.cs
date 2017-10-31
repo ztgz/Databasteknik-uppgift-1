@@ -31,31 +31,35 @@ namespace Uppgift1.UI
         {
             if (!string.IsNullOrEmpty(GatuadressTextBox.Text) &&
                 !string.IsNullOrEmpty(PostNummerTextBox.Text) &&
-                !string.IsNullOrEmpty(PostortTextBox.Text))
+                !string.IsNullOrEmpty(PostortTextBox.Text) &&
+                int.TryParse(IdTextBox.Text, out int id))
             {
                 DataAccess dataAccess = new DataAccess();
 
-                if (SQLCommands.CreateAdressInDatabase(dataAccess, PostNummerTextBox.Text, 
-                    GatuadressTextBox.Text, PostortTextBox.Text))
+                //if (SQLCommands.CreateAdressInDatabase(dataAccess, PostNummerTextBox.Text, 
+                //    GatuadressTextBox.Text, PostortTextBox.Text))
+                if (SQLCommands.CreateAdressInRegister(dataAccess, PostNummerTextBox.Text, 
+                    GatuadressTextBox.Text, PostortTextBox.Text, id))
                 {
                     InfoLabel.Text = "Adress kunde skapas.";
 
                     GatuadressTextBox.Text = "";
                     PostNummerTextBox.Text = "";
                     PostortTextBox.Text = "";
+                    IdTextBox.Text = "";
 
                     LoadAdresses();
                 }
                 else
                 {
                     InfoLabel.Text = "Adress kunde inte skapas." + 
-                        "\nVänligen se efter om postnummer och adress redan finns i databasen.";
+                        "\nVänligen se efter om postnummer och adress redan finns i databasen.\n" +
+                                     "Eller att id är korrekt.";
                 }
             }
-
             else
             {
-                InfoLabel.Text = "Adress kan inte skapas föräns alla fält är ifyllda.";
+                InfoLabel.Text = "Adress kan inte skapas föräns alla fält är korrekt ifyllda.";
             }
         }
 
