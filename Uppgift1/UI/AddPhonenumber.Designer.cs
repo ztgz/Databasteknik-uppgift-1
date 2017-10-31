@@ -61,14 +61,14 @@
             this.telefonnummerDataGridView.Location = new System.Drawing.Point(12, 126);
             this.telefonnummerDataGridView.Name = "telefonnummerDataGridView";
             this.telefonnummerDataGridView.RowTemplate.Height = 24;
-            this.telefonnummerDataGridView.Size = new System.Drawing.Size(665, 232);
+            this.telefonnummerDataGridView.Size = new System.Drawing.Size(242, 232);
             this.telefonnummerDataGridView.TabIndex = 2;
             // 
             // AddPhonenumberBTN
             // 
-            this.AddPhonenumberBTN.Location = new System.Drawing.Point(273, 20);
+            this.AddPhonenumberBTN.Location = new System.Drawing.Point(285, 9);
             this.AddPhonenumberBTN.Name = "AddPhonenumberBTN";
-            this.AddPhonenumberBTN.Size = new System.Drawing.Size(194, 44);
+            this.AddPhonenumberBTN.Size = new System.Drawing.Size(137, 44);
             this.AddPhonenumberBTN.TabIndex = 3;
             this.AddPhonenumberBTN.Text = "Lägg till nummer";
             this.AddPhonenumberBTN.UseVisualStyleBackColor = true;
@@ -84,7 +84,7 @@
             // 
             // DeleteRowBtn
             // 
-            this.DeleteRowBtn.Location = new System.Drawing.Point(551, -1);
+            this.DeleteRowBtn.Location = new System.Drawing.Point(285, 307);
             this.DeleteRowBtn.Name = "DeleteRowBtn";
             this.DeleteRowBtn.Size = new System.Drawing.Size(137, 51);
             this.DeleteRowBtn.TabIndex = 5;
@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 370);
+            this.ClientSize = new System.Drawing.Size(482, 370);
             this.Controls.Add(this.idTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DeleteRowBtn);

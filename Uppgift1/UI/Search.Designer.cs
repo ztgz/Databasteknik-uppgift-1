@@ -149,7 +149,7 @@
             this.searchResultDataGridView.Name = "searchResultDataGridView";
             this.searchResultDataGridView.ReadOnly = true;
             this.searchResultDataGridView.RowTemplate.Height = 24;
-            this.searchResultDataGridView.Size = new System.Drawing.Size(909, 262);
+            this.searchResultDataGridView.Size = new System.Drawing.Size(744, 262);
             this.searchResultDataGridView.TabIndex = 6;
             this.searchResultDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchResultDataGridView_CellDoubleClick);
             // 
@@ -157,7 +157,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 539);
+            this.ClientSize = new System.Drawing.Size(825, 539);
             this.Controls.Add(this.searchResultDataGridView);
             this.Controls.Add(this.searchBTN);
             this.Controls.Add(this.panel1);

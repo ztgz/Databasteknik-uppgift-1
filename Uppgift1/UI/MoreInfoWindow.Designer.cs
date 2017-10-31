@@ -37,18 +37,18 @@
             this.moreInfoDataGridView.AllowUserToAddRows = false;
             this.moreInfoDataGridView.AllowUserToDeleteRows = false;
             this.moreInfoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.moreInfoDataGridView.Location = new System.Drawing.Point(25, 149);
+            this.moreInfoDataGridView.Location = new System.Drawing.Point(31, 25);
             this.moreInfoDataGridView.Name = "moreInfoDataGridView";
             this.moreInfoDataGridView.ReadOnly = true;
             this.moreInfoDataGridView.RowTemplate.Height = 24;
-            this.moreInfoDataGridView.Size = new System.Drawing.Size(1054, 390);
+            this.moreInfoDataGridView.Size = new System.Drawing.Size(1000, 390);
             this.moreInfoDataGridView.TabIndex = 0;
             // 
             // MoreInfoWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 573);
+            this.ClientSize = new System.Drawing.Size(1065, 444);
             this.Controls.Add(this.moreInfoDataGridView);
             this.Name = "MoreInfoWindow";
             this.Text = "MoreInfoWindow";

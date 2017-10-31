@@ -40,9 +40,9 @@
             this.AddPersonBTN = new System.Windows.Forms.Button();
             this.AdressWindowBTN = new System.Windows.Forms.Button();
             this.SearchBTN = new System.Windows.Forms.Button();
-            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TelefonBTN = new System.Windows.Forms.Button();
             this.removeContactBTN = new System.Windows.Forms.Button();
+            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PersonsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personBindingSource)).BeginInit();
@@ -53,19 +53,20 @@
             this.PersonsDataGridView.AllowUserToAddRows = false;
             this.PersonsDataGridView.AllowUserToDeleteRows = false;
             this.PersonsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.PersonsDataGridView.Location = new System.Drawing.Point(105, 395);
+            this.PersonsDataGridView.Location = new System.Drawing.Point(95, 154);
             this.PersonsDataGridView.Name = "PersonsDataGridView";
             this.PersonsDataGridView.RowTemplate.Height = 24;
-            this.PersonsDataGridView.Size = new System.Drawing.Size(1140, 298);
+            this.PersonsDataGridView.Size = new System.Drawing.Size(1052, 298);
             this.PersonsDataGridView.TabIndex = 0;
             this.PersonsDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.PersonsDataGridView_CellBeginEdit);
+            this.PersonsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonsDataGridView_CellClick);
             this.PersonsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonsDataGridView_CellEndEdit);
             // 
             // DataLabel
             // 
             this.DataLabel.AutoSize = true;
             this.DataLabel.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataLabel.Location = new System.Drawing.Point(105, 346);
+            this.DataLabel.Location = new System.Drawing.Point(95, 105);
             this.DataLabel.Name = "DataLabel";
             this.DataLabel.Size = new System.Drawing.Size(79, 32);
             this.DataLabel.TabIndex = 1;
@@ -77,7 +78,7 @@
             this.panel1.Controls.Add(this.PersonligRadioBTN);
             this.panel1.Controls.Add(this.JobbRadioBTN);
             this.panel1.Controls.Add(this.AllaRadioBtn);
-            this.panel1.Location = new System.Drawing.Point(1152, 262);
+            this.panel1.Location = new System.Drawing.Point(1166, 235);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(93, 127);
             this.panel1.TabIndex = 2;
@@ -132,9 +133,9 @@
             // 
             // UppdateraTabelBTN
             // 
-            this.UppdateraTabelBTN.Location = new System.Drawing.Point(993, 343);
+            this.UppdateraTabelBTN.Location = new System.Drawing.Point(1166, 380);
             this.UppdateraTabelBTN.Name = "UppdateraTabelBTN";
-            this.UppdateraTabelBTN.Size = new System.Drawing.Size(153, 45);
+            this.UppdateraTabelBTN.Size = new System.Drawing.Size(93, 72);
             this.UppdateraTabelBTN.TabIndex = 3;
             this.UppdateraTabelBTN.Text = "Uppdatera Tabell";
             this.UppdateraTabelBTN.UseVisualStyleBackColor = true;
@@ -142,9 +143,9 @@
             // 
             // AddPersonBTN
             // 
-            this.AddPersonBTN.Location = new System.Drawing.Point(840, 343);
+            this.AddPersonBTN.Location = new System.Drawing.Point(870, 89);
             this.AddPersonBTN.Name = "AddPersonBTN";
-            this.AddPersonBTN.Size = new System.Drawing.Size(135, 45);
+            this.AddPersonBTN.Size = new System.Drawing.Size(115, 58);
             this.AddPersonBTN.TabIndex = 4;
             this.AddPersonBTN.Text = "Skapa Kontakt";
             this.AddPersonBTN.UseVisualStyleBackColor = true;
@@ -152,9 +153,9 @@
             // 
             // AdressWindowBTN
             // 
-            this.AdressWindowBTN.Location = new System.Drawing.Point(105, 29);
+            this.AdressWindowBTN.Location = new System.Drawing.Point(581, 90);
             this.AdressWindowBTN.Name = "AdressWindowBTN";
-            this.AdressWindowBTN.Size = new System.Drawing.Size(114, 50);
+            this.AdressWindowBTN.Size = new System.Drawing.Size(114, 53);
             this.AdressWindowBTN.TabIndex = 5;
             this.AdressWindowBTN.Text = "Adresser";
             this.AdressWindowBTN.UseVisualStyleBackColor = true;
@@ -162,7 +163,7 @@
             // 
             // SearchBTN
             // 
-            this.SearchBTN.Location = new System.Drawing.Point(105, 99);
+            this.SearchBTN.Location = new System.Drawing.Point(427, 88);
             this.SearchBTN.Name = "SearchBTN";
             this.SearchBTN.Size = new System.Drawing.Size(114, 57);
             this.SearchBTN.TabIndex = 6;
@@ -170,13 +171,9 @@
             this.SearchBTN.UseVisualStyleBackColor = true;
             this.SearchBTN.Click += new System.EventHandler(this.SearchBTN_Click);
             // 
-            // personBindingSource
-            // 
-            this.personBindingSource.DataSource = typeof(Uppgift1.Models.Person);
-            // 
             // TelefonBTN
             // 
-            this.TelefonBTN.Location = new System.Drawing.Point(105, 177);
+            this.TelefonBTN.Location = new System.Drawing.Point(726, 90);
             this.TelefonBTN.Name = "TelefonBTN";
             this.TelefonBTN.Size = new System.Drawing.Size(114, 56);
             this.TelefonBTN.TabIndex = 7;
@@ -186,19 +183,23 @@
             // 
             // removeContactBTN
             // 
-            this.removeContactBTN.Location = new System.Drawing.Point(654, 342);
+            this.removeContactBTN.Location = new System.Drawing.Point(1031, 90);
             this.removeContactBTN.Name = "removeContactBTN";
-            this.removeContactBTN.Size = new System.Drawing.Size(154, 46);
+            this.removeContactBTN.Size = new System.Drawing.Size(116, 57);
             this.removeContactBTN.TabIndex = 8;
             this.removeContactBTN.Text = "Ta bort kontakt";
             this.removeContactBTN.UseVisualStyleBackColor = true;
             this.removeContactBTN.Click += new System.EventHandler(this.removeContactBTN_Click);
             // 
+            // personBindingSource
+            // 
+            this.personBindingSource.DataSource = typeof(Uppgift1.Models.Person);
+            // 
             // AdressBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1333, 747);
+            this.ClientSize = new System.Drawing.Size(1333, 520);
             this.Controls.Add(this.removeContactBTN);
             this.Controls.Add(this.TelefonBTN);
             this.Controls.Add(this.SearchBTN);

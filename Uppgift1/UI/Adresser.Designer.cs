@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.addresserDataGridView = new System.Windows.Forms.DataGridView();
+            this.postnummerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gatuadressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.postortDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.adressBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,10 +46,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.IdTextBox = new System.Windows.Forms.TextBox();
-            this.postnummerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gatuadressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.postortDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.adressBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.addresserDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.adressBindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +67,31 @@
             this.addresserDataGridView.RowTemplate.Height = 24;
             this.addresserDataGridView.Size = new System.Drawing.Size(856, 282);
             this.addresserDataGridView.TabIndex = 0;
+            // 
+            // postnummerDataGridViewTextBoxColumn
+            // 
+            this.postnummerDataGridViewTextBoxColumn.DataPropertyName = "Postnummer";
+            this.postnummerDataGridViewTextBoxColumn.HeaderText = "Postnummer";
+            this.postnummerDataGridViewTextBoxColumn.Name = "postnummerDataGridViewTextBoxColumn";
+            this.postnummerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gatuadressDataGridViewTextBoxColumn
+            // 
+            this.gatuadressDataGridViewTextBoxColumn.DataPropertyName = "Gatuadress";
+            this.gatuadressDataGridViewTextBoxColumn.HeaderText = "Gatuadress";
+            this.gatuadressDataGridViewTextBoxColumn.Name = "gatuadressDataGridViewTextBoxColumn";
+            this.gatuadressDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // postortDataGridViewTextBoxColumn
+            // 
+            this.postortDataGridViewTextBoxColumn.DataPropertyName = "Postort";
+            this.postortDataGridViewTextBoxColumn.HeaderText = "Postort";
+            this.postortDataGridViewTextBoxColumn.Name = "postortDataGridViewTextBoxColumn";
+            this.postortDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // adressBindingSource1
+            // 
+            this.adressBindingSource1.DataSource = typeof(Uppgift1.Models.Adress);
             // 
             // label1
             // 
@@ -155,7 +180,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(73, 124);
+            this.label5.Location = new System.Drawing.Point(10, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 17);
             this.label5.TabIndex = 10;
@@ -167,31 +192,6 @@
             this.IdTextBox.Name = "IdTextBox";
             this.IdTextBox.Size = new System.Drawing.Size(100, 22);
             this.IdTextBox.TabIndex = 11;
-            // 
-            // postnummerDataGridViewTextBoxColumn
-            // 
-            this.postnummerDataGridViewTextBoxColumn.DataPropertyName = "Postnummer";
-            this.postnummerDataGridViewTextBoxColumn.HeaderText = "Postnummer";
-            this.postnummerDataGridViewTextBoxColumn.Name = "postnummerDataGridViewTextBoxColumn";
-            this.postnummerDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // gatuadressDataGridViewTextBoxColumn
-            // 
-            this.gatuadressDataGridViewTextBoxColumn.DataPropertyName = "Gatuadress";
-            this.gatuadressDataGridViewTextBoxColumn.HeaderText = "Gatuadress";
-            this.gatuadressDataGridViewTextBoxColumn.Name = "gatuadressDataGridViewTextBoxColumn";
-            this.gatuadressDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // postortDataGridViewTextBoxColumn
-            // 
-            this.postortDataGridViewTextBoxColumn.DataPropertyName = "Postort";
-            this.postortDataGridViewTextBoxColumn.HeaderText = "Postort";
-            this.postortDataGridViewTextBoxColumn.Name = "postortDataGridViewTextBoxColumn";
-            this.postortDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // adressBindingSource1
-            // 
-            this.adressBindingSource1.DataSource = typeof(Uppgift1.Models.Adress);
             // 
             // Adresser
             // 

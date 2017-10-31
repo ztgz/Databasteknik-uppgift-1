@@ -146,9 +146,9 @@
             // 
             // AddContactBTN
             // 
-            this.AddContactBTN.Location = new System.Drawing.Point(127, 334);
+            this.AddContactBTN.Location = new System.Drawing.Point(85, 334);
             this.AddContactBTN.Name = "AddContactBTN";
-            this.AddContactBTN.Size = new System.Drawing.Size(100, 60);
+            this.AddContactBTN.Size = new System.Drawing.Size(198, 60);
             this.AddContactBTN.TabIndex = 12;
             this.AddContactBTN.Text = "Skapa Kontakt";
             this.AddContactBTN.UseVisualStyleBackColor = true;
@@ -205,7 +205,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 630);
+            this.ClientSize = new System.Drawing.Size(386, 587);
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.TypAvKontaktLabel);
             this.Controls.Add(this.PersonligKontaktCheckBox);

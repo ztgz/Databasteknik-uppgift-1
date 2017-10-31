@@ -155,6 +155,11 @@ namespace Uppgift1
                         break;
                     case "Postnummer":
                     case "Gatuadress":
+                        ChangeAdress changeAdressWindow = new ChangeAdress(PersonsDataGridView[4, e.RowIndex].Value.ToString(),
+                            PersonsDataGridView[5, e.RowIndex].Value.ToString(), 
+                            PersonsDataGridView[6, e.RowIndex].Value.ToString(), id);
+
+                        changeAdressWindow.Show();
                         break;
                     case "Postort":
                         string postalCode = PersonsDataGridView[4, e.RowIndex].Value.ToString();
@@ -177,6 +182,25 @@ namespace Uppgift1
                 oldCellValue = PersonsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
             else
                 oldCellValue = "";
+            
+        }
+
+        private void PersonsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            if (PersonsDataGridView.Columns[e.ColumnIndex].HeaderText == "Postnummer" ||
+                PersonsDataGridView.Columns[e.ColumnIndex].HeaderText == "Gatuadress")
+            {
+                int id = (int)PersonsDataGridView[0, e.RowIndex].Value;
+
+                ChangeAdress changeAdressWindow = new ChangeAdress(PersonsDataGridView[4, e.RowIndex].Value.ToString(),
+                    PersonsDataGridView[5, e.RowIndex].Value.ToString(),
+                    PersonsDataGridView[6, e.RowIndex].Value.ToString(), id);
+
+                changeAdressWindow.Show();
+            }
         }
     }
 }

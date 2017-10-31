@@ -65,15 +65,30 @@ namespace Uppgift1
                 new SqlParameter("@FK_Gatuadress", adress),
             };
 
-            var commandText = "delete from Adressregister where " +
-                "FK_id = @FK_Id and FK_Postnummer = @FK_Postnummer " +
-                "and FK_Gatuadress = @FK_Gatuadress;";
-            commandText += " insert into Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " +
+            DeleteAdressInRegister(dataAccess, postalCode, adress, id);
+            var commandText = "insert into Adressregister(FK_Id, FK_Postnummer, FK_Gatuadress) " +
                            "values(@FK_id, @FK_Postnummer, @FK_Gatuadress);";
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
         }
-        
+
+        public static bool DeleteAdressInRegister(DataAccess dataAccess, string postalCode, 
+            string adress, int id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@FK_Id", id),
+                new SqlParameter("@FK_Postnummer", postalCode),
+                new SqlParameter("@FK_Gatuadress", adress),
+            };
+
+            var commandText = "delete from Adressregister where " +
+                              "FK_id = @FK_Id and FK_Postnummer = @FK_Postnummer " +
+                              "and FK_Gatuadress = @FK_Gatuadress;";
+
+            return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
         public static bool CreateAdressInDatabase(DataAccess dataAccess, string postalCode, string adress, string city)
         {
             if (DoesAdressExsist(dataAccess, postalCode, adress))
@@ -107,6 +122,14 @@ namespace Uppgift1
                 "values(@FK_Id, @FK_Postnummer, @FK_Gatuadress);";
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+        }
+
+        public static bool ChangePersonAdress(DataAccess dataAccess, string oldPostalCode, string oldAdress, string oldCity, 
+            string newPostalCode, string newAdress, string newCity, int id)
+        {
+            DeleteAdressInRegister(dataAccess, oldPostalCode, oldAdress, id);
+
+            return AddAdressToAdressregister(dataAccess, newPostalCode, newAdress, newCity, id);
         }
 
         public static bool UpdatePostort(DataAccess dataAccess, string postalCode, string adress, string city)
@@ -207,6 +230,20 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
+        public static bool DeletePhonenumberFromList(DataAccess dataAccess, string phonenumber, int id)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Nummer", phonenumber),
+                new SqlParameter("@Id", id), 
+            };
+
+            var command = "DELETE FROM Telefonlista where FK_Nummer = @Nummer " +
+                          "and FK_Id = @Id;";
+
+            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
+        }
+
         public static bool DeletePerson(DataAccess dataAccess, int id)
         {
             SqlParameter[] parameters =
@@ -222,25 +259,12 @@ namespace Uppgift1
            return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
-        //public static bool DeletePerson(DataAccess dataAccess, int id, string jobb)
-        //{
-        //    SqlParameter[] parameters =
-        //    {
-        //        new SqlParameter("@Id", id),
-        //    };
-
-        //    var command = "DELETE From ÖvrigKontakt WHERE FK_Id = @Id;";
-        //    command += "DELETE From JobbKontakt WHERE FK_Id = @Id;";
-        //    command += "DELETE From PersonligKontakt WHERE FK_Id = @Id;";
-        //    command += "DELETE FROM Person where Id = @Id;";
-
-        //    return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
-        //}
-
         public static bool UpdatePhonenumber(DataAccess dataAccess, int id, string oldPhoneumber, string newPhonenumber)
         {
             if (newPhonenumber.Length < 1)
-                return false;
+            {
+                return DeletePhonenumberFromList(dataAccess, oldPhoneumber, id);
+            }
 
             //Try to create phonnumber in database
             CreatePhoneNumberInDatabase(dataAccess, newPhonenumber);
@@ -352,8 +376,6 @@ namespace Uppgift1
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text);
         }
 
-        
-        
         public static bool UpdateEpost(DataAccess dataAccess, int id, string Epost)
         {
             SqlParameter[] parameters =
