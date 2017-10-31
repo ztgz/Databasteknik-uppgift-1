@@ -52,7 +52,11 @@ namespace Uppgift1
             if (!DoesPersonExist(dataAccess, id))
                 return false;
 
-            CreateAdressInDatabase(dataAccess, postalCode, adress, city);
+            if (!CreateAdressInDatabase(dataAccess, postalCode, adress, city))
+            {
+                //Man kan behöva uppdatera postort i databas
+                UpdatePostort(dataAccess, postalCode, adress, city);
+            }
 
             SqlParameter[] parameters =
             {
@@ -74,7 +78,7 @@ namespace Uppgift1
         {
             if (DoesAdressExsist(dataAccess, postalCode, adress))
                 return false;
-
+            
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Postnummer", postalCode),
