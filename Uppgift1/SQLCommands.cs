@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using Uppgift1.DAL;
 
 namespace Uppgift1
@@ -406,31 +407,40 @@ namespace Uppgift1
             return dataAccess.ExecuteNonQuery(command, CommandType.Text, parameters);
         }
 
-        /*public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
+        public static bool DoesPersonHavePhone(DataAccess dataAccess, int id, string phoneNumber)
         {
             var commandText = "Select * from Telefonlista " +
                               "where FK_Id = " + id + " and FK_Nummer = " + phoneNumber + ";";
 
             return dataAccess.ExecuteSelectCommand(commandText, CommandType.Text)
                 .Tables[0].Rows.Count > 0;
-        }*/
+        }
 
         public static bool AddPhonenumberToPhonelist(DataAccess dataAccess, string phoneNumber, int Id)
         {
             if(!DoesPersonExist(dataAccess, Id))
                 return false;
-                
+
+            if (phoneNumber.Length == 0)
+            {
+                DeletePhonenumberFromList(dataAccess, phoneNumber, Id);
+                return true;
+            }
+
+
             /* Add to phonelist */
             SqlParameter[] parameters =
             {
                 new SqlParameter("@FK_Nummer", phoneNumber),
                 new SqlParameter("@FK_Id", Id),
             };
-
-            var commandText = "DELETE FROM Telefonlista where FK_Nummer = @FK_Nummer; " +
-                              "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
+            
+            //TODO Det kraschar när telefonnummer är tomt, måste ta bort nummer eller uppdatera
+            //DeletePhonenumberFromList(dataAccess, phoneNumber, Id);
+            var commandText = "INSERT INTO Telefonlista(FK_Nummer, FK_Id) " + "values(@FK_Nummer, @FK_Id);";
 
             return dataAccess.ExecuteNonQuery(commandText, CommandType.Text, parameters);
+
         }
 
         public static bool DeletePhonenumberFromList(DataAccess dataAccess, string phonenumber, int id)

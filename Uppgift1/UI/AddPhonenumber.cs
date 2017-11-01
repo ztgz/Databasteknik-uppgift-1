@@ -31,7 +31,9 @@ namespace Uppgift1.UI
                 int.TryParse(idTextBox.Text, out int id))
             {
                 DataAccess dataAccess = new DataAccess();
-                if (SQLCommands.AddPhonenumberToPhonelist(dataAccess, TelefonnummerTextBox.Text, id))
+
+                //if (SQLCommands.AddPhonenumberToPhonelist(dataAccess, TelefonnummerTextBox.Text, id))
+                if(SQLCommands.UpdatePhonenumber(dataAccess, id, "", TelefonnummerTextBox.Text))
                 {
                     InfoLabel.Text = "Telefonnummer har lagts till i listan.";
                 }
